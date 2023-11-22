@@ -1,0 +1,7 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@Training.IntegrationTest.API_HostAddress = http://localhost:5007
+
+GET {{Training.IntegrationTest.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
