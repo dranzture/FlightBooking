@@ -1,6 +1,10 @@
-﻿namespace Training.IntegrationTest.Core.BookingAggregate.Interfaces;
+﻿using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.BookingAggregate.Requests;
+using Training.FlightBooking.Core.BookingAggregate.Responses;
+
+namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
 
 public interface ICreateBookingService
 {
-    Task<Booking> CreateBooking(Booking booking, CancellationToken token);
+    Task<CreateBookingResponse> CreateBooking(CreateBookingRequest bookingRequest, CancellationToken token = default);
 }

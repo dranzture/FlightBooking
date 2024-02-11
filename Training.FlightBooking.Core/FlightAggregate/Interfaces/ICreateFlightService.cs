@@ -1,4 +1,6 @@
-﻿namespace Training.IntegrationTest.Core.FlightAggregate.Interfaces;
+﻿using Training.FlightBooking.Core.DTOs;
+
+namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
 
 public interface ICreateFlightService
 {

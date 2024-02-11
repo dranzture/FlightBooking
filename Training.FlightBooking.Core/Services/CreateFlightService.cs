@@ -1,9 +1,12 @@
 ﻿using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.FlightAggregate.Interfaces;
-using Training.IntegrationTest.Core.FlightAggregate.Specifications;
+using AutoMapper;
+using Training.FlightBooking.Core.DTOs;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Specifications;
 
-namespace Training.IntegrationTest.Core.Services;
+namespace Training.FlightBooking.Core.Services;
 
 public class CreateFlightService(IRepository<Flight> repository) : ICreateFlightService
 {
@@ -14,6 +17,8 @@ public class CreateFlightService(IRepository<Flight> repository) : ICreateFlight
         
         if(existingFlight.Any(e=>e.From == flight.From && e.Departure.Date == flight.Departure.Date))
             throw new ArgumentException("Flight already exists");
+        
+        flight.RegisterFlightCreated();
         
         await repository.AddAsync(flight, token);
         await repository.SaveChangesAsync(token);

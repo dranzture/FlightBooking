@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Training.IntegrationTest.Core.PassengerAggregate.Specifications;
+namespace Training.FlightBooking.Core.PassengerAggregate.Specifications;
 
 public sealed class GetUserByEmail : SingleResultSpecification<Passenger>
 {

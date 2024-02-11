@@ -1,9 +1,10 @@
 ﻿using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.BookingAggregate.Events;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.BookingAggregate.Events;
+using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.BookingAggregate;
+namespace Training.FlightBooking.Core.BookingAggregate;
 
 public class Booking : EntityBase<Guid>, IAggregateRoot
 {
@@ -14,11 +15,13 @@ public class Booking : EntityBase<Guid>, IAggregateRoot
     public Booking(Flight flight)
     {
         Flight = flight;
+        Id = new Guid();
     }
     
     public BookingStatus Status { get; private set; } = BookingStatus.Open;
     
     public Flight Flight { get; private set; }
+    
     
     private HashSet<Passenger> _passengers = new HashSet<Passenger>();
     
@@ -49,6 +52,7 @@ public class Booking : EntityBase<Guid>, IAggregateRoot
             
             _passengers.Remove(passenger);
         }
+        
         RegisterDomainEvent(new PassengerCanceledFlight(Flight.Id, passengers.ToList()));
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
 
-namespace Training.IntegrationTest.Core.FlightAggregate.Events;
+namespace Training.FlightBooking.Core.FlightAggregate.Events;
 
-internal class FlightIsAtFullCapacity : DomainEventBase
+internal class FlightIsAtFullCapacity(Flight flight) : DomainEventBase
 {
-    
+    public readonly Flight Flight = flight;
 }

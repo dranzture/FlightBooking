@@ -1,6 +1,7 @@
 ﻿using Ardalis.Specification;
+using Training.FlightBooking.Core.BookingAggregate;
 
-namespace Training.IntegrationTest.Core.BookingAggregate.Specifications;
+namespace Training.FlightBooking.Core.BookingAggregate.Specifications;
 
 public sealed class GetOpenBookingByFlightId : SingleResultSpecification<Booking>
 {

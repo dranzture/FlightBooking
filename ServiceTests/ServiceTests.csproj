@@ -28,7 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Training.FlightBooking.Core\Training.FlightBooking.Core.csproj" />
       <ProjectReference Include="..\Training.FlightBooking.Infrastructure\Training.FlightBooking.Infrastructure.csproj" />
     </ItemGroup>
 

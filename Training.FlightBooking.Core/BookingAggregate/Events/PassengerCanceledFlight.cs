@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.BookingAggregate.Events;
+namespace Training.FlightBooking.Core.BookingAggregate.Events;
 
 public class PassengerCanceledFlight(Guid flightId, List<Passenger> passengers) : DomainEventBase
 {

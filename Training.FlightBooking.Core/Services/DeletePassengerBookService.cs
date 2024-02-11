@@ -1,9 +1,10 @@
 ﻿using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.BookingAggregate;
-using Training.IntegrationTest.Core.BookingAggregate.Interfaces;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces;
+using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.Services;
+namespace Training.FlightBooking.Core.Services;
 
 public class DeletePassengerBookService(IRepository<Booking> repository) : IDeletePassengerBookService
 {

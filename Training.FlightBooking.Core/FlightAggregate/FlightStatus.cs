@@ -1,6 +1,6 @@
 ﻿using Ardalis.SmartEnum;
 
-namespace Training.IntegrationTest.Core.FlightAggregate;
+namespace Training.FlightBooking.Core.FlightAggregate;
 
 public class FlightStatus : SmartEnum<FlightStatus>
 {

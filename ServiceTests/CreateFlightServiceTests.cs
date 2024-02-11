@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.Services;
-using Training.IntegrationTest.Core.ValueObjects;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.Services;
+using Training.FlightBooking.Core.ValueObjects;
 
 namespace CreateBookingServiceTests;
 

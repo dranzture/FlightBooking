@@ -1,6 +1,6 @@
-﻿using Training.IntegrationTest.Core.PassengerAggregate;
+﻿using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.BookingAggregate.Interfaces;
+namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
 
 public interface IDeletePassengerBookService
 {

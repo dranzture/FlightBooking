@@ -1,4 +1,4 @@
-﻿namespace Training.IntegrationTest.Core.FlightAggregate.Interfaces;
+﻿namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
 
 public interface IUpdateFlightStatusService
 {

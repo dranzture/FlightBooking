@@ -1,9 +1,10 @@
 ﻿using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.FlightAggregate.Interfaces;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.Services;
+namespace Training.FlightBooking.Core.Services;
 
 public class UpdateFlightAvailabilityService(IRepository<Flight> repository) : IUpdateFlightAvailabilityService
 {

@@ -2,7 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Training.IntegrationTest.Core;
+using Training.FlightBooking.Core;
 using Training.IntegrationTest.Infrastructure;
 using Training.IntegrationTest.Infrastructure.Data;
 

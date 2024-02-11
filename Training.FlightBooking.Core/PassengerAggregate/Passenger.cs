@@ -1,7 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 
-namespace Training.IntegrationTest.Core.PassengerAggregate;
+namespace Training.FlightBooking.Core.PassengerAggregate;
 
 public class Passenger : EntityBase<Guid>, IAggregateRoot
 {

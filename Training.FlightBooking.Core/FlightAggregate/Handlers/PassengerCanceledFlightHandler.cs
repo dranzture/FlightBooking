@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Training.IntegrationTest.Core.BookingAggregate.Events;
-using Training.IntegrationTest.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.BookingAggregate.Events;
 
-namespace Training.IntegrationTest.Core.FlightAggregate.Handlers;
+namespace Training.FlightBooking.Core.FlightAggregate.Handlers;
 
 internal class PassengerCanceledFlightHandler
     (IUpdateFlightAvailabilityService updateFlightAvailabilityService) : INotificationHandler<PassengerCanceledFlight>

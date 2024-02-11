@@ -1,26 +1,43 @@
-﻿using System.Data;
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using Training.IntegrationTest.Core.ValueObjects;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Events;
+using Training.FlightBooking.Core.ValueObjects;
 
-namespace Training.IntegrationTest.Core.FlightAggregate;
+namespace Training.FlightBooking.Core.FlightAggregate;
 
-public class Flight(Airplane plane, DateTime departure, DateTime arrival, Location from, Location to)
+public class Flight
     : EntityBase<Guid>, IAggregateRoot
 {
-    public Location To { get; private set; } = to;
+    public Flight(){}
 
-    public Location From { get; private set; } = from;
+    public Flight(Airplane plane, DateTime arrival, DateTime departure, Location from, Location to)
+    {
+        To = to;
+        From = from;
+        Arrival = Guard.Against.OutOfSQLDateRange(arrival);
+        Departure = Guard.Against.OutOfSQLDateRange(departure);
+        AvailableSeats = plane.Capacity;
+        Plane = plane;
+    }
+    public Location To { get; private set; }
 
-    public DateTime Arrival { get; private set; } = Guard.Against.OutOfSQLDateRange(arrival);
+    public Location From { get; private set; }
 
-    public DateTime Departure { get; private set; } = Guard.Against.OutOfSQLDateRange(departure);
+    public DateTime Arrival { get; private set; }
 
-    public int AvailableSeats { get; private set; } = plane.Capacity;
+    public DateTime Departure { get; private set; }
 
-    public Airplane Plane { get; private set; } = Guard.Against.Null<Airplane>(plane);
+    public int AvailableSeats { get; private set; }
+
+    public Airplane Plane { get; private set; }
 
     public FlightStatus Status { get; private set; } = FlightStatus.OnTime;
+
+    public void RegisterFlightCreated()
+    {
+        RegisterDomainEvent(new FlightCreated(this));
+    }
 
     public void UpdateStatus(FlightStatus status)
     {
@@ -36,7 +53,7 @@ public class Flight(Airplane plane, DateTime departure, DateTime arrival, Locati
 
         Arrival = Guard.Against.OutOfSQLDateRange(arrival);
     }
-
+    
     public void UpdateDepartureDateTime(DateTime departure)
     {
         if (departure >= Arrival)
@@ -49,18 +66,25 @@ public class Flight(Airplane plane, DateTime departure, DateTime arrival, Locati
 
     public void UpdateSeatAvailability(int seats, ObserveFlightAvailability observe)
     {
-        if (observe == ObserveFlightAvailability.Increase)
+        switch (observe)
         {
-            if (AvailableSeats < AvailableSeats + seats)
-                throw new ArgumentException("Cannot increase seat availability due to capacity limit");
-            AvailableSeats += seats;
+            case var observeType when observeType == ObserveFlightAvailability.Increase:
+                if (AvailableSeats + seats > AvailableSeats) // Assuming MaxCapacity is defined elsewhere
+                {
+                    throw new ArgumentException("Cannot increase seat availability due to capacity limit");
+                }
+                AvailableSeats += seats;
+                break;
+            case var observeType when observeType == ObserveFlightAvailability.Decrease:
+                if (AvailableSeats - seats < 0)
+                {
+                    throw new ArgumentException("Cannot decrease seat availability due to inadequate seats");
+                }
+                AvailableSeats -= seats;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(observe), "Unknown flight availability operation");
         }
-        else if (observe == ObserveFlightAvailability.Decrease)
-        {
-            if (AvailableSeats - seats < 0)
-                throw new ArgumentException("Cannot decrease seat availability due to inadequate seats");
-            AvailableSeats -= seats;
-            
-        }
+
     }
 }

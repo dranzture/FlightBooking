@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using Training.IntegrationTest.Core.FlightAggregate.Events;
+using Training.FlightBooking.Core.FlightAggregate.Events;
 
-namespace Training.IntegrationTest.Core.BookingAggregate.Handlers;
+namespace Training.FlightBooking.Core.BookingAggregate.Handlers;
 
-internal class FlightIsReadyToDepartHandler : INotificationHandler<FlightIsReadyToDepart>
+internal class FlightIsReadyToDepartHandler() : INotificationHandler<FlightIsReadyToDepart>
 {
     public Task Handle(FlightIsReadyToDepart notification, CancellationToken cancellationToken)
     {

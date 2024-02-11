@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
-using Training.IntegrationTest.Core.BookingAggregate;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.PassengerAggregate;
 
 namespace Training.IntegrationTest.Infrastructure.Data;
 

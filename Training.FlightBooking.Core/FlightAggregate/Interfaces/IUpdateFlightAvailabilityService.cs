@@ -1,6 +1,6 @@
-﻿using Training.IntegrationTest.Core.PassengerAggregate;
+﻿using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Core.FlightAggregate.Interfaces;
+namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
 
 public interface IUpdateFlightAvailabilityService
 {

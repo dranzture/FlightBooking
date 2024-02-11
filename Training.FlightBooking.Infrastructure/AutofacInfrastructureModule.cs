@@ -3,9 +3,11 @@ using Ardalis.SharedKernel;
 using Autofac;
 using MediatR;
 using MediatR.Pipeline;
-using Training.IntegrationTest.Core.BookingAggregate;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.PassengerAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.PassengerAggregate;
 using Module = Autofac.Module;
 
 namespace Training.IntegrationTest.Infrastructure;

@@ -1,7 +1,9 @@
 ﻿using Ardalis.SharedKernel;
 using Microsoft.Extensions.DependencyInjection;
-using Training.IntegrationTest.Core.BookingAggregate;
-using Training.IntegrationTest.Core.FlightAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.FlightAggregate;
 
 namespace CreateBookingServiceTests;
 

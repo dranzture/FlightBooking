@@ -1,10 +1,11 @@
 ﻿using Ardalis.SharedKernel;
 using Microsoft.Extensions.Logging;
-using Training.IntegrationTest.Core.FlightAggregate;
-using Training.IntegrationTest.Core.FlightAggregate.Interfaces;
-using Training.IntegrationTest.Core.FlightAggregate.Specifications;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Specifications;
 
-namespace Training.IntegrationTest.Core.Services;
+namespace Training.FlightBooking.Core.Services;
 
 public class UpdateFlightStatusService(IRepository<Flight> repository)
     : IUpdateFlightStatusService

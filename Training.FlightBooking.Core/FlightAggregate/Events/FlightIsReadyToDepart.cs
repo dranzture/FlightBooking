@@ -1,9 +1,9 @@
 ﻿using Ardalis.SharedKernel;
+using Training.FlightBooking.Core.FlightAggregate;
 
-namespace Training.IntegrationTest.Core.FlightAggregate.Events;
+namespace Training.FlightBooking.Core.FlightAggregate.Events;
 
 internal class FlightIsReadyToDepart(Flight flight) : DomainEventBase
 {
-    public Flight Flight { get; set; } = flight;
-    
+    public readonly Flight Flight = flight;
 }

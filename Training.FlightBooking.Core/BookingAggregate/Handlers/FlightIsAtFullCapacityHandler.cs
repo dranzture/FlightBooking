@@ -1,12 +1,14 @@
 ﻿using MediatR;
-using Training.IntegrationTest.Core.FlightAggregate.Events;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Events;
+using Training.FlightBooking.Core.FlightAggregate.Events;
 
-namespace Training.IntegrationTest.Core.BookingAggregate.Handlers;
+namespace Training.FlightBooking.Core.BookingAggregate.Handlers;
 
-internal class FlightIsAtFullCapacityHandler : INotificationHandler<FlightIsAtFullCapacity>
+internal class FlightIsAtFullCapacityHandler(IUpdateBookingStatusService service) : INotificationHandler<FlightIsAtFullCapacity>
 {
-    public Task Handle(FlightIsAtFullCapacity notification, CancellationToken cancellationToken)
+    public async Task Handle(FlightIsAtFullCapacity notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await service.UpdateBookingStatus(notification.Flight, BookingStatus.Closed, cancellationToken);
     }
 }

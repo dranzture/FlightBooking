@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using Training.IntegrationTest.Core.BookingAggregate.Interfaces;
-using Training.IntegrationTest.Core.FlightAggregate.Interfaces;
-using Training.IntegrationTest.Core.Services;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces;
+using Training.FlightBooking.Core.Services;
 
-namespace Training.IntegrationTest.Core;
+namespace Training.FlightBooking.Core;
 
 public class AutofacCoreModule : Module
 {

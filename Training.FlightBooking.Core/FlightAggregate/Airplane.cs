@@ -1,7 +1,7 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 
-namespace Training.IntegrationTest.Core.FlightAggregate;
+namespace Training.FlightBooking.Core.FlightAggregate;
 
 public class Airplane : EntityBase<Guid>
 {

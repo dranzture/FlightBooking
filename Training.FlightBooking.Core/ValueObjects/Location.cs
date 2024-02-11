@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Training.IntegrationTest.Core.ValueObjects;
+namespace Training.FlightBooking.Core.ValueObjects;
 
 [ComplexType]
 public class Location
@@ -11,6 +11,6 @@ public class Location
         City = city;
     }
     public Location(){}
-    public string? State { get; set; }
-    public string? City { get; set; }
+    public string? State { get; init; }
+    public string? City { get; init; }
 }

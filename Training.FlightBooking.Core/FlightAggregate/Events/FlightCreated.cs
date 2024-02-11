@@ -1,8 +1,8 @@
 ﻿using Ardalis.SharedKernel;
 
-namespace Training.IntegrationTest.Core.FlightAggregate.Events;
+namespace Training.FlightBooking.Core.FlightAggregate.Events;
 
-internal class FlightCreated(Flight flight) : DomainEventBase
+public class FlightCreated(Flight flight) : DomainEventBase
 {
     public readonly Flight Flight = flight;
 }
