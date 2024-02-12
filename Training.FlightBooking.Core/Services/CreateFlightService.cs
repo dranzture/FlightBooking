@@ -12,13 +12,11 @@ public class CreateFlightService(IRepository<Flight> repository) : ICreateFlight
 {
     public async Task<Flight> CreateFlight(Flight flight, CancellationToken token)
     {
-        var flightsByAirplane = new GetFlightsByAirplaneId(flight.Plane.Id);
+        var flightsByAirplane = new GetFlightsByAirplaneId(flight.Airplane.Id);
         var existingFlight = await repository.ListAsync(flightsByAirplane, token);
         
         if(existingFlight.Any(e=>e.From == flight.From && e.Departure.Date == flight.Departure.Date))
             throw new ArgumentException("Flight already exists");
-        
-        flight.RegisterFlightCreated();
         
         await repository.AddAsync(flight, token);
         await repository.SaveChangesAsync(token);

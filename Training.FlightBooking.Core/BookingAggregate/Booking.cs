@@ -1,6 +1,6 @@
-﻿using Ardalis.SharedKernel;
+﻿using Ardalis.GuardClauses;
+using Ardalis.SharedKernel;
 using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Events;
 using Training.FlightBooking.Core.PassengerAggregate;
 
@@ -8,51 +8,44 @@ namespace Training.FlightBooking.Core.BookingAggregate;
 
 public class Booking : EntityBase<Guid>, IAggregateRoot
 {
+    public Booking(){}
+    
     /// <summary>
     /// Initializes a new instance of the Booking class with the specified flight.
     /// </summary>
     /// <param name="flight">The flight associated with the booking.</param>
-    public Booking(Flight flight)
+    /// <param name="seats">Seats to be booked.</param>
+    /// <param name="passenger">Passenger to book flight.</param>
+    public Booking(Flight flight, Passenger passenger, int seats)
     {
         Flight = flight;
+        FlightId = flight.Id;
+        
+        Passenger = passenger;
+        PassengerId = passenger.Id;
+        
+        Seats = Guard.Against.NegativeOrZero(seats);
+        
         Id = new Guid();
+        RegisterDomainEvent(new PassengerBookedFlight(FlightId, Passenger, Seats));
     }
     
-    public BookingStatus Status { get; private set; } = BookingStatus.Open;
     
     public Flight Flight { get; private set; }
     
+    public Guid FlightId { get; private set; }
     
-    private HashSet<Passenger> _passengers = new HashSet<Passenger>();
+    public Passenger Passenger { get;  set; }
     
-    public IReadOnlyCollection<Passenger> Passengers => _passengers;
+    public Guid PassengerId { get; private set; }
+    
+    private int Seats { get;  set; }
+   
+    public BookingStatus Status { get; private set; } = BookingStatus.Active;
 
-    public void AddPassengers(HashSet<Passenger> passengers)
+    public void CancelBooking()
     {
-        foreach (var passenger in passengers)
-        {
-            if (_passengers.Contains(passenger))
-            {
-                throw new AggregateException("Passenger already added to booking");
-            }
-            
-            _passengers.Add(passenger);
-        }
-        RegisterDomainEvent(new PassengerBookedFlight(Flight.Id, passengers.ToList()));
+        RegisterDomainEvent(new PassengerCanceledFlight(FlightId, Passenger, Seats));
     }
-
-    public void RemovePassengers(HashSet<Passenger> passengers)
-    {
-        foreach (var passenger in passengers)
-        {
-            if (!_passengers.Contains(passenger))
-            {
-                throw new AggregateException("Passenger does not exist in booking");
-            }
-            
-            _passengers.Remove(passenger);
-        }
-        
-        RegisterDomainEvent(new PassengerCanceledFlight(Flight.Id, passengers.ToList()));
-    }
+    
 }

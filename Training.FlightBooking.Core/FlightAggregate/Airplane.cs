@@ -5,6 +5,7 @@ namespace Training.FlightBooking.Core.FlightAggregate;
 
 public class Airplane : EntityBase<Guid>
 {
+    public Airplane(){}
     /// <summary>
     /// Initializes a new instance of the Airplane class.
     /// </summary>

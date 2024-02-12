@@ -2,7 +2,7 @@
 
 namespace Training.FlightBooking.Core.DTOs;
 
-public class FlightDto(LocationDto from, LocationDto to, DateTime arrival, DateTime departure, int availableSeats, AirplaneDto plane) : BaseDto<Guid>
+public class FlightDto(LocationDto from, LocationDto to, DateTime arrival, DateTime departure, int availableSeats, AirplaneDto airplane) : BaseDto<Guid>
 {
     public LocationDto To { get; private set; } = to;
 
@@ -14,5 +14,5 @@ public class FlightDto(LocationDto from, LocationDto to, DateTime arrival, DateT
 
     public int AvailableSeats { get; private set; } = availableSeats;
 
-    public AirplaneDto Plane { get; private set; } = plane;
+    public AirplaneDto Airplane { get; private set; } = airplane;
 }

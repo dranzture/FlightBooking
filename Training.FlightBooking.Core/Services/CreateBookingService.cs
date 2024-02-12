@@ -16,7 +16,7 @@ public class CreateBookingService(IRepository<Booking> bookingRepository, IRepos
         var flight = await flightRepository.FirstOrDefaultAsync(new GetFlightById(bookingRequest.Flight.Id), token);
         if (flight is null) throw new ArgumentException("Flight does not exist.");
         
-        var newBooking = new Booking(flight);
+        var newBooking = new Booking(flight, bookingRequest.Passenger, bookingRequest.Seats);
         
         await bookingRepository.AddAsync(newBooking, token);
         await bookingRepository.SaveChangesAsync(token);

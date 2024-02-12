@@ -4,5 +4,5 @@ namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
 
 public interface IBookPassengerService
 {
-    public Task BookPassenger(Guid flightId, List<Passenger> passengers, CancellationToken token);
+    public Task BookPassenger(Guid flightId, Passenger passenger, int seats, CancellationToken token);
 }

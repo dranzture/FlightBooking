@@ -12,8 +12,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
     : DbContext(options)
 {
     public DbSet<Booking> Bookings => Set<Booking>();
+    
     public DbSet<Flight> Flights => Set<Flight>();
+    
     public DbSet<Airplane> Airplanes => Set<Airplane>();
+    
     public DbSet<Passenger> Passengers => Set<Passenger>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

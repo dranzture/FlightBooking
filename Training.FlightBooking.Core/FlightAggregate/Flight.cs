@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Events;
 using Training.FlightBooking.Core.ValueObjects;
 
@@ -11,14 +10,16 @@ public class Flight
 {
     public Flight(){}
 
-    public Flight(Airplane plane, DateTime arrival, DateTime departure, Location from, Location to)
+    public Flight(Airplane airplane, DateTime arrival, DateTime departure, Location from, Location to)
     {
         To = to;
         From = from;
         Arrival = Guard.Against.OutOfSQLDateRange(arrival);
         Departure = Guard.Against.OutOfSQLDateRange(departure);
-        AvailableSeats = plane.Capacity;
-        Plane = plane;
+        AvailableSeats = airplane.Capacity;
+        BookedSeats = 0;
+        Airplane = airplane;
+        AirplaneId = airplane.Id;
     }
     public Location To { get; private set; }
 
@@ -29,15 +30,17 @@ public class Flight
     public DateTime Departure { get; private set; }
 
     public int AvailableSeats { get; private set; }
+    
+    public int BookedSeats { get; private set; }
+    
 
-    public Airplane Plane { get; private set; }
+    public Guid AirplaneId { get; private set; }
+    
+    public Airplane Airplane { get; private set; }
 
     public FlightStatus Status { get; private set; } = FlightStatus.OnTime;
-
-    public void RegisterFlightCreated()
-    {
-        RegisterDomainEvent(new FlightCreated(this));
-    }
+    
+    
 
     public void UpdateStatus(FlightStatus status)
     {
@@ -69,18 +72,18 @@ public class Flight
         switch (observe)
         {
             case var observeType when observeType == ObserveFlightAvailability.Increase:
-                if (AvailableSeats + seats > AvailableSeats) // Assuming MaxCapacity is defined elsewhere
+                if (BookedSeats + seats > AvailableSeats) 
                 {
                     throw new ArgumentException("Cannot increase seat availability due to capacity limit");
                 }
-                AvailableSeats += seats;
+                BookedSeats += seats;
                 break;
             case var observeType when observeType == ObserveFlightAvailability.Decrease:
-                if (AvailableSeats - seats < 0)
+                if (BookedSeats - seats < 0)
                 {
-                    throw new ArgumentException("Cannot decrease seat availability due to inadequate seats");
+                    throw new ArgumentException("More seats have been requested to remove than booked seats");
                 }
-                AvailableSeats -= seats;
+                BookedSeats -= seats;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(observe), "Unknown flight availability operation");

@@ -1,20 +1,21 @@
 ﻿using Ardalis.SharedKernel;
 using Training.FlightBooking.Core.BookingAggregate;
-using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
-using Training.FlightBooking.Core.BookingAggregate.Specifications;
+using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Specifications;
 using Training.FlightBooking.Core.PassengerAggregate;
 
 namespace Training.FlightBooking.Core.Services;
 
-public class BookPassengerService(IRepository<Booking> repository) : IBookPassengerService
+public class BookPassengerService(IRepository<Flight> flightRepository, IRepository<Booking> bookingRepository) : IBookPassengerService
 {
-    public async Task BookPassenger(Guid flightId, List<Passenger> passengers, CancellationToken token)
+    public async Task BookPassenger(Guid flightId, Passenger passenger, int seats, CancellationToken token)
     {
-        var booking = await repository.FirstOrDefaultAsync(new GetOpenBookingByFlightId(flightId), token);
-        if (booking is null) throw new ArgumentException("Booking not found");
+        var flight = await flightRepository.FirstOrDefaultAsync(new GetFlightById(flightId), token);
+        if (flight is null) throw new ArgumentException("Flight not found");
         
-        booking.AddPassengers(passengers.ToHashSet());
-        await repository.SaveChangesAsync(token);
+        var booking = new Booking(flight, passenger, seats); 
+        await bookingRepository.AddAsync(booking, token);
+        await flightRepository.SaveChangesAsync(token);
     }
 }

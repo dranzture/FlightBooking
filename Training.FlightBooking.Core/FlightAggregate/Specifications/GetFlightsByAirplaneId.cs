@@ -8,7 +8,6 @@ public sealed class GetFlightsByAirplaneId : Specification<Flight>
     public GetFlightsByAirplaneId(Guid airplaneId)
     {
         Query
-            .Where(x => x.Plane.Id == airplaneId && (x.Status != FlightStatus.Canceled ||
-                                                     x.Status != FlightStatus.Canceled));
+            .Where(x => x.Airplane.Id == airplaneId && x.Status != FlightStatus.Canceled);
     }
 }

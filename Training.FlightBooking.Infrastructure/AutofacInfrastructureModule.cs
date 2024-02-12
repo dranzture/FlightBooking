@@ -31,25 +31,10 @@ public class AutofacInfrastructureModule : Module
     }
   }
 
-  private void LoadAssemblies()
-  {
-    var flightAssembly = Assembly.GetAssembly(typeof(Flight)); 
-    var bookingAssembly = Assembly.GetAssembly(typeof(Booking)); 
-    var passengerAssembly = Assembly.GetAssembly(typeof(Passenger)); 
-    var airplaneAssembly = Assembly.GetAssembly(typeof(Airplane)); 
-    
-    var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
 
-    AddToAssembliesIfNotNull(flightAssembly);    
-    AddToAssembliesIfNotNull(bookingAssembly);
-    AddToAssembliesIfNotNull(passengerAssembly);
-    AddToAssembliesIfNotNull(airplaneAssembly);
-    AddToAssembliesIfNotNull(infrastructureAssembly);
-  }
 
   protected override void Load(ContainerBuilder builder)
   {
-    LoadAssemblies();
     if (_isDevelopment)
     {
       RegisterDevelopmentOnlyDependencies(builder);

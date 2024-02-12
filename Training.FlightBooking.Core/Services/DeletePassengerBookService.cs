@@ -8,12 +8,12 @@ namespace Training.FlightBooking.Core.Services;
 
 public class DeletePassengerBookService(IRepository<Booking> repository) : IDeletePassengerBookService
 {
-    public async Task DeletePassengerBooking(Guid bookingId, List<Passenger> passengers, CancellationToken token)
+    public async Task DeletePassengerBooking(Guid bookingId, CancellationToken token)
     {
         var booking = await repository.GetByIdAsync(bookingId, token);
         if (booking is null) throw new ArgumentException("Booking not found");
         
-        booking.RemovePassengers(passengers.ToHashSet());
+        booking.CancelBooking();
         await repository.SaveChangesAsync(token);
     }
 }

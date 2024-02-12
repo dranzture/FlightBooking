@@ -4,9 +4,5 @@ using Training.IntegrationTest.Infrastructure.Data;
 
 namespace Training.IntegrationTest.Infrastructure;
 
-public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
-{
-    public EfRepository(AppDbContext dbContext) : base(dbContext)
-    {
-    }
-}
+public class EfRepository<T>(AppDbContext dbContext) : RepositoryBase<T>(dbContext), IReadRepository<T>, IRepository<T>
+    where T : class, IAggregateRoot;

@@ -4,8 +4,10 @@ using Training.FlightBooking.Core.PassengerAggregate;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Events;
 
-public class PassengerCanceledFlight(Guid flightId, List<Passenger> passengers) : DomainEventBase
+public class PassengerCanceledFlight(Guid flightId, Passenger passenger, int seats) : DomainEventBase
 {
     public Guid FlightId { get; set; } = flightId;
-    public List<Passenger> Passengers { get; set; } = passengers;
+    public Passenger Passengers { get; set; } = passenger;
+    
+    public int Seats { get; set; } = seats;
 }

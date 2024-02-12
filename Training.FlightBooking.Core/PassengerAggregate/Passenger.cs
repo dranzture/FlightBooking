@@ -1,10 +1,12 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using Training.FlightBooking.Core.BookingAggregate;
 
 namespace Training.FlightBooking.Core.PassengerAggregate;
 
 public class Passenger : EntityBase<Guid>, IAggregateRoot
 {
+    public Passenger(){}
     public Passenger(string firstName, string lastName, string email, DateTime dateOfBirth)
     {
         FirstName = Guard.Against.NullOrEmpty(firstName);
@@ -12,12 +14,15 @@ public class Passenger : EntityBase<Guid>, IAggregateRoot
         Email = ValidateEmail(email);
         DateOfBirth = Guard.Against.OutOfSQLDateRange(dateOfBirth);
         Id = Guid.NewGuid();
+        Booking = [];
     }
     
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public DateTime DateOfBirth { get; private set; }
+    
+    public HashSet<Booking> Booking { get; private set; }
 
     private string ValidateEmail(string email)
     {

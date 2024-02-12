@@ -9,13 +9,13 @@ namespace Training.FlightBooking.Core.Services;
 public class UpdateFlightAvailabilityService(IRepository<Flight> repository) : IUpdateFlightAvailabilityService
 {
     
-    public async Task UpdateFlightAvailability(Guid flightId, List<Passenger> passengers, ObserveFlightAvailability observe,
+    public async Task UpdateFlightAvailability(Guid flightId,int seats, ObserveFlightAvailability observe,
         CancellationToken token)
     {
         var flight = await repository.GetByIdAsync(flightId, token);
         if (flight is null) throw new ArgumentException("Flight not found");
 
-        flight.UpdateSeatAvailability(passengers.Count, observe);
+        flight.UpdateSeatAvailability(seats, observe);
         await repository.SaveChangesAsync(token);
     }
 }
