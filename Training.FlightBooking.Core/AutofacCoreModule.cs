@@ -10,9 +10,12 @@ public class AutofacCoreModule : Module
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<BookPassengerService>().As<IBookPassengerService>().InstancePerLifetimeScope();
-        builder.RegisterType<CreateFlightService>().As<ICreateFlightService>().InstancePerLifetimeScope();
         builder.RegisterType<DeletePassengerBookService>().As<IDeletePassengerBookService>().InstancePerLifetimeScope();
+        
         builder.RegisterType<UpdateFlightStatusService>().As<IUpdateFlightStatusService>().InstancePerLifetimeScope();
-        builder.RegisterType<CreateBookingService>().As<ICreateBookingService>().InstancePerLifetimeScope();
+        builder.RegisterType<CreateFlightService>().As<ICreateFlightService>().InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(IFlightValidationRule).Assembly)
+            .Where(t => typeof(IFlightValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
     }
 }

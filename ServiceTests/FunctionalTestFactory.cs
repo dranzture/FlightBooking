@@ -9,7 +9,7 @@ using Training.IntegrationTest.Infrastructure.Interfaces;
 
 namespace CreateBookingServiceTests;
 
-public class FunctionalTestFactory : WebApplicationFactory<IInfrastructureMarker>, IAsyncLifetime
+public class FunctionalTestFactory : WebApplicationFactory<IStartup>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
@@ -32,7 +32,6 @@ public class FunctionalTestFactory : WebApplicationFactory<IInfrastructureMarker
             {
                 options.UseNpgsql(_dbContainer.GetConnectionString());
             });
-
         });
     }
 
