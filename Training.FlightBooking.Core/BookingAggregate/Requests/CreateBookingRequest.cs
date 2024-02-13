@@ -1,13 +1,14 @@
-﻿using Training.FlightBooking.Core.FlightAggregate;
+﻿using Training.FlightBooking.Core.DTOs;
+using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.PassengerAggregate;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Requests;
 
-public class CreateBookingRequest(Flight flight, Passenger passenger, int seats)
+public class CreateBookingRequest(Guid flightId, PassengerDto passenger, int seats)
 {
-    public Flight Flight { get; private set; } = flight;
+    public Guid FlightId { get; private set; } = flightId;
 
-    public Passenger Passenger { get; private set; } = passenger;
+    public PassengerDto Passenger { get; private set; } = passenger;
 
     public int Seats { get; private set; } = seats;
 }

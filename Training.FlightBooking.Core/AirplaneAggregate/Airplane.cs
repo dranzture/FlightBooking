@@ -1,9 +1,9 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 
-namespace Training.FlightBooking.Core.FlightAggregate;
+namespace Training.FlightBooking.Core.AirplaneAggregate;
 
-public class Airplane : EntityBase<Guid>
+public class Airplane : EntityBase<Guid>, IAggregateRoot
 {
     public Airplane(){}
     /// <summary>

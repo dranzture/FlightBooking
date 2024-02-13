@@ -6,8 +6,8 @@ namespace Training.FlightBooking.Core.DTOs;
 public class PassengerDto(
     string firstName,
     string lastName,
-    DateTime dateOfBirth,
     string email,
+    DateTime dateOfBirth,
     string? phoneNumber = null) : BaseDto<Guid>
 {
     public string FirstName { get; private set; } = firstName;

@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
+using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Events;
 using Training.FlightBooking.Core.ValueObjects;
 

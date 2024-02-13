@@ -8,7 +8,7 @@ using Training.FlightBooking.Core.FlightAggregate.Specifications;
 
 namespace Training.FlightBooking.Core.Services;
 
-public class CreateFlightService(IRepository<Flight> repository, IEnumerable<IFlightValidationRule> validationRules) : ICreateFlightService
+public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICreateFlightValidationRule> validationRules) : ICreateFlightService
 {
     public async Task<Flight> CreateFlight(Flight flight, CancellationToken token)
     {

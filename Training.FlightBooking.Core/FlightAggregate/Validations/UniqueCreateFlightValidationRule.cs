@@ -4,7 +4,7 @@ using Training.FlightBooking.Core.FlightAggregate.Specifications;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Validations;
 
-public class UniqueFlightValidationRule(IRepository<Flight> repository) : IFlightValidationRule
+public class UniqueCreateFlightValidationRule(IRepository<Flight> repository) : ICreateFlightValidationRule
 {
     public async Task ValidateAsync(Flight flight, CancellationToken token)
     {

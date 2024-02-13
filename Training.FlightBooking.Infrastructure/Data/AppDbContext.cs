@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
+using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.PassengerAggregate;

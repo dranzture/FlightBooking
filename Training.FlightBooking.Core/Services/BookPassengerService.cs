@@ -9,7 +9,7 @@ namespace Training.FlightBooking.Core.Services;
 
 public class BookPassengerService(IRepository<Flight> flightRepository, IRepository<Booking> bookingRepository) : IBookPassengerService
 {
-    public async Task BookPassenger(Guid flightId, Passenger passenger, int seats, CancellationToken token)
+    public async Task<Guid> BookPassenger(Guid flightId, Passenger passenger, int seats, CancellationToken token)
     {
         var flight = await flightRepository.FirstOrDefaultAsync(new GetFlightById(flightId), token);
         if (flight is null) throw new ArgumentException("Flight not found");
@@ -17,5 +17,7 @@ public class BookPassengerService(IRepository<Flight> flightRepository, IReposit
         var booking = new Booking(flight, passenger, seats); 
         await bookingRepository.AddAsync(booking, token);
         await flightRepository.SaveChangesAsync(token);
+
+        return booking.Id;
     }
 }

@@ -26,8 +26,7 @@ public class Create(ICreateFlightService createFlightService, IMapper mapper) : 
                     120,
                     new AirplaneDto(new Guid(), "Boeing 747", "Boeing", 120, 2020)));
         });
-        Description(b => b.Accepts<CreateFlightRequest>("application/json"));
-        Version(1);
+
     }
 
     public override async Task HandleAsync(CreateFlightRequest req, CancellationToken ct)
