@@ -6,9 +6,9 @@ namespace Training.FlightBooking.Core.BookingAggregate.Requests;
 
 public class CreateBookingRequest(Guid flightId, PassengerDto passenger, int seats)
 {
-    public Guid FlightId { get; private set; } = flightId;
+    public Guid FlightId { get; set; } = flightId;
 
-    public PassengerDto Passenger { get; private set; } = passenger;
+    public PassengerDto Passenger { get; set; } = passenger;
 
-    public int Seats { get; private set; } = seats;
+    public int Seats { get; set; } = seats;
 }

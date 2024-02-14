@@ -32,6 +32,6 @@ public class Get : Endpoint<Guid, BookingDto>
                 "Polat", 
                 "Coban", 
                 "polatcoban@gmail.com", 
-                new DateTime(1990, 8, 28)), 2), ct);
+                new DateOnly(1990, 8, 28)), 2), ct);
     }
 }

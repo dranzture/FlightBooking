@@ -29,15 +29,16 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
         int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-        // ignore events if no dispatcher provided
-        if (dispatcher == null) return result;
-
-        // dispatch events only if save was successful
+        
         var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
             .Select(e => e.Entity)
             .Where(e => e.DomainEvents.Any())
             .ToArray();
+        
+        // ignore events if no dispatcher provided
+        if (dispatcher == null) return result;
+
+        // dispatch events only if save was successful
 
         await dispatcher.DispatchAndClearEvents(entitiesWithEvents);
 

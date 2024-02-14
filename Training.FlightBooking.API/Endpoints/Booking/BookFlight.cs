@@ -19,7 +19,7 @@ public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoin
         {
             s.Description = "Create a new flight";
             s.ExampleRequest = new CreateBookingRequest(new Guid(),
-                new PassengerDto("Polat", "Coban", "polatcoban@gmail.com", new DateTime(1990, 8, 28)), 2);
+                new PassengerDto("Polat", "Coban", "polatcoban@gmail.com", new DateOnly(1990, 8, 28)), 2);
         });
     }
 

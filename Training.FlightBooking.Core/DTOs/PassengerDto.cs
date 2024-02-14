@@ -3,20 +3,21 @@ using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.DTOs;
 
-public class PassengerDto(
-    string firstName,
-    string lastName,
-    string email,
-    DateTime dateOfBirth,
-    string? phoneNumber = null) : BaseDto<Guid>
+public class PassengerDto : BaseDto<Guid>
 {
-    public string FirstName { get; private set; } = firstName;
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateOnly DateOfBirth { get; set; }
+    public string Email { get; set; }
+    public string? PhoneNumber { get; set; }
 
-    public string LastName { get; private set; } = lastName;
-
-    public DateTime DateOfBirth { get; private set; } = dateOfBirth;
-
-    public string Email { get; private set; } = email;
-
-    public string? PhoneNumber { get; private set; } = phoneNumber;
+    public PassengerDto(string firstName, string lastName, string email, DateOnly dateOfBirth, string? phoneNumber = null)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        DateOfBirth = dateOfBirth;
+        PhoneNumber = phoneNumber;
+    }
+    public PassengerDto(){}
 }

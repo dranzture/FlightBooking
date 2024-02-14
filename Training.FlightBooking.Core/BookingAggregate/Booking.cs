@@ -8,8 +8,10 @@ namespace Training.FlightBooking.Core.BookingAggregate;
 
 public class Booking : EntityBase<Guid>, IAggregateRoot
 {
-    public Booking(){}
-    
+    public Booking()
+    {
+    }
+
     /// <summary>
     /// Initializes a new instance of the Booking class with the specified flight.
     /// </summary>
@@ -20,32 +22,30 @@ public class Booking : EntityBase<Guid>, IAggregateRoot
     {
         Flight = flight;
         FlightId = flight.Id;
-        
-        Passenger = passenger;
+
         PassengerId = passenger.Id;
-        
+
         Seats = Guard.Against.NegativeOrZero(seats);
-        
+
         Id = new Guid();
-        RegisterDomainEvent(new PassengerBookedFlight(FlightId, Passenger, Seats));
     }
-    
-    
+
+
     public Flight Flight { get; private set; }
-    
+
     public Guid FlightId { get; private set; }
-    
-    public Passenger Passenger { get;  set; }
-    
+
+    public Passenger Passenger { get; set; }
+
     public Guid PassengerId { get; private set; }
-    
-    private int Seats { get;  set; }
-   
+
+    private int Seats { get; set; }
+
     public BookingStatus Status { get; private set; } = BookingStatus.Active;
 
     public void CancelBooking()
     {
+        Status = BookingStatus.Canceled;
         RegisterDomainEvent(new PassengerCanceledFlight(FlightId, Passenger, Seats));
     }
-    
 }
