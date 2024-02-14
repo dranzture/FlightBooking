@@ -10,9 +10,10 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
     public void Configure(EntityTypeBuilder<Booking> builder)
     {
         builder.HasKey(e => e.Id);
+        
         builder.HasOne(e => e.Flight)
-            .WithOne()
-            .HasForeignKey<Booking>(e => e.FlightId);
+            .WithMany()
+            .HasForeignKey(e => e.FlightId);
         
         builder.HasOne(e => e.Passenger)
             .WithMany(e => e.Booking)
