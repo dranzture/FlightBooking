@@ -19,6 +19,8 @@ public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICr
 
         await repository.AddAsync(flight, token);
         await repository.SaveChangesAsync(token);
+        
+        
         return flight;
     }
 }

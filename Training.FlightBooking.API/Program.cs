@@ -1,3 +1,4 @@
+using System.Reflection;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
@@ -36,6 +37,8 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+
+//app.ValidateAutoMapper();
 
 app.UseFastEndpoints();
 

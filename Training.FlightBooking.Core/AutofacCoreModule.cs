@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.Services;
@@ -9,6 +10,9 @@ public class AutofacCoreModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
+        builder.RegisterType<CreateAirplaneService>().As<ICreateAirplaneService>().InstancePerLifetimeScope();
+        builder.RegisterType<UpdateAirplaneCapacityService>().As<IUpdateAirplaneCapacityService>().InstancePerLifetimeScope();
+        
         builder.RegisterType<BookPassengerService>().As<IBookPassengerService>().InstancePerLifetimeScope();
         builder.RegisterType<RetrieveAllBookingsService>().As<IRetrieveAllBookingsService>().InstancePerLifetimeScope();
         builder.RegisterType<DeletePassengerBookService>().As<IDeletePassengerBookService>().InstancePerLifetimeScope();

@@ -7,6 +7,12 @@ public class SendNotificationHandler : INotificationHandler<SendNotification>
 {
     public Task Handle(SendNotification notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Sent notification to Passenger's email: {notification.Passenger.Email}");
+        if (notification.Itinerary is not null)
+        {
+            Console.WriteLine($"Sent notification to Itinerary's email: {notification.Itinerary.Email}");
+        }
+
+        return Task.CompletedTask;
     }
 }

@@ -4,7 +4,7 @@ namespace Training.FlightBooking.API.Helpers;
 
 public static partial class Helpers
 {
-    public static AppDbContext GetAppDbContext(this IApplicationBuilder app)
+    private static AppDbContext GetAppDbContext(this IApplicationBuilder app)
     {
         var dbContext = app.ApplicationServices
             .GetRequiredService<IServiceScopeFactory>()

@@ -7,7 +7,7 @@ namespace Training.FlightBooking.API.Endpoints.Booking;
 
 public class ListBookings(IRetrieveAllBookingsService service, IMapper mapper) : EndpointWithoutRequest<IEnumerable<BookingDto>>
 {
-    private const string Route = "api/booking/list";
+    private const string Route = "api/Booking/List";
 
     public override void Configure()
     {

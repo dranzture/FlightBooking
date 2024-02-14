@@ -11,16 +11,17 @@ public class Flight
 {
     public Flight(){}
 
-    public Flight(Airplane airplane, DateTime arrival, DateTime departure, Location from, Location to)
+    public Flight(Guid airplaneId, int availableSeats, DateTime arrival, DateTime departure, Location from, Location to)
     {
         To = to;
         From = from;
         Arrival = Guard.Against.OutOfSQLDateRange(arrival);
         Departure = Guard.Against.OutOfSQLDateRange(departure);
-        AvailableSeats = airplane.Capacity;
+        AvailableSeats = availableSeats;
         BookedSeats = 0;
-        Airplane = airplane;
-        AirplaneId = airplane.Id;
+        AirplaneId = airplaneId;
+        
+        RegisterDomainEvent(new FlightCreated(this));
     }
     public Location To { get; private set; }
 
@@ -35,10 +36,10 @@ public class Flight
     public int BookedSeats { get; private set; }
     
 
+    public Airplane Airplane { get; private set; }
+    
     public Guid AirplaneId { get; private set; }
     
-    public Airplane Airplane { get; private set; }
-
     public FlightStatus Status { get; private set; } = FlightStatus.OnTime;
     
     

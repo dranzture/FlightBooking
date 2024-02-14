@@ -1,6 +1,8 @@
-﻿namespace Training.FlightBooking.Core.DTOs;
+﻿using Training.FlightBooking.Core.Shared;
 
-public class BookingDto(FlightDto flight, PassengerDto passenger, int seats)
+namespace Training.FlightBooking.Core.DTOs;
+
+public class BookingDto(FlightDto flight, PassengerDto passenger, int seats) : BaseDto<Guid>
 {
     public FlightDto Flight { get;  set; } = flight;
 

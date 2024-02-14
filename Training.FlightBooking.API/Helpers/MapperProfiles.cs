@@ -5,7 +5,7 @@ using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.ValueObjects;
 
-namespace Training.FlightBooking.Core.Helpers;
+namespace Training.FlightBooking.API.Helpers;
 
 public class MapperProfiles : Profile
 {

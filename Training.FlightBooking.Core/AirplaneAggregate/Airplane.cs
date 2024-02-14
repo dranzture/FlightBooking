@@ -43,4 +43,31 @@ public class Airplane : EntityBase<Guid>, IAggregateRoot
         }
         Capacity = capacity;
     }
+    
+    public void UpdateYear(int year)
+    {
+        if (year < 0)
+        {
+            throw new ArgumentException("Year cannot be negative");
+        }
+        Year = year;
+    }
+    
+    public void UpdateModel(string model)
+    {
+        if (string.IsNullOrWhiteSpace(model))
+        {
+            throw new ArgumentException("Model cannot be empty");
+        }
+        Model = model;
+    }
+    
+    public void UpdateManufacturer(string manufacturer)
+    {
+        if (string.IsNullOrWhiteSpace(manufacturer))
+        {
+            throw new ArgumentException("Manufacturer cannot be empty");
+        }
+        Manufacturer = manufacturer;
+    }
 }
