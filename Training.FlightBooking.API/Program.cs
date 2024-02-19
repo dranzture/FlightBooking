@@ -1,7 +1,9 @@
 using System.Reflection;
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -36,7 +38,24 @@ builder.Services.AddFastEndpoints();
 
 builder.Services.AddEndpointsApiExplorer();
 
+
 var app = builder.Build();
+
+// Accessing the Autofac service provider
+//var autofacServiceProvider = app.Services.GetAutofacRoot();
+
+// Console.WriteLine("Autofac DI container includes the following components:");
+// // Now, enumerate the ComponentRegistry
+// foreach (var registration in autofacServiceProvider.ComponentRegistry.Registrations)
+// {
+//     foreach (var service in registration.Services)
+//     {
+//         if (service is TypedService typedService)
+//         {
+//             Console.WriteLine(typedService.ServiceType.FullName);
+//         }
+//     }
+// }
 
 //This is a debugger tool of AutoMapper to validate which fields are mapped
 //app.ValidateAutoMapper();

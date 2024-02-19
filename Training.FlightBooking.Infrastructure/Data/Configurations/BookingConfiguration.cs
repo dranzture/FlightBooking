@@ -15,10 +15,10 @@ public class BookingConfiguration : IEntityTypeConfiguration<Booking>
             .WithMany()
             .HasForeignKey(e => e.FlightId);
         
-        builder.HasOne(e => e.Passenger)
-            .WithMany(e => e.Booking)
+        builder.HasOne(e=>e.Passenger)
+            .WithMany(e=>e.Bookings)
             .HasForeignKey(e => e.PassengerId);
-
+        
         builder.Property(e => e.Status)
             .HasConversion(e => e.Value, 
                 e => BookingStatus.FromValue(e));

@@ -4,11 +4,11 @@ using Training.FlightBooking.Core.PassengerAggregate;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Requests;
 
-public class CreateBookingRequest(Guid flightId, PassengerDto passenger, int seats)
+public class CreateBookingRequest(Guid flightId, Guid passengerId, int seats)
 {
     public Guid FlightId { get; set; } = flightId;
 
-    public PassengerDto Passenger { get; set; } = passenger;
+    public Guid PassengerId { get; set; } = passengerId;
 
     public int Seats { get; set; } = seats;
 }

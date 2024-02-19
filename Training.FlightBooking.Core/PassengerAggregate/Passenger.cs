@@ -4,9 +4,10 @@ using Training.FlightBooking.Core.BookingAggregate;
 
 namespace Training.FlightBooking.Core.PassengerAggregate;
 
-public class Passenger : EntityBase<Guid>, IAggregateRoot
+public class Passenger : Shared.EntityBase<Guid>, IAggregateRoot
 {
     public Passenger(){}
+    
     public Passenger(string firstName, string lastName, string email, DateOnly dateOfBirth)
     {
         FirstName = Guard.Against.NullOrEmpty(firstName);
@@ -20,8 +21,10 @@ public class Passenger : EntityBase<Guid>, IAggregateRoot
     public string LastName { get; private set; }
     public string Email { get; private set; }
     public DateOnly DateOfBirth { get; private set; }
+
+    private List<Booking> _bookings = new();
     
-    public HashSet<Booking> Booking { get; private set; }
+    public IReadOnlyCollection<Booking> Bookings  => _bookings;
 
     private string ValidateEmail(string email)
     {

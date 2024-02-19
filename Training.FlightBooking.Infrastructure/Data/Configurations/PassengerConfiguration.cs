@@ -10,5 +10,9 @@ public class PassengerConfiguration : IEntityTypeConfiguration<Passenger>
     {
         builder.HasKey(e => e.Id);
         builder.HasIndex(e => e.Email).IsUnique();
+
+        builder.HasMany(e => e.Bookings)
+            .WithOne(e => e.Passenger)
+            .HasForeignKey(e => e.PassengerId);
     }
 }

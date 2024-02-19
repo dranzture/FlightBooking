@@ -9,7 +9,6 @@ public class CreateAirplaneService(IRepository<Airplane> airplaneRepository) : I
     public async Task<Guid> CreateAirplane(Airplane airplane, CancellationToken cancellationToken)
     {
         await airplaneRepository.AddAsync(airplane, cancellationToken);
-        await airplaneRepository.SaveChangesAsync(cancellationToken);
         return airplane.Id;
     }
 }

@@ -1,10 +1,6 @@
 ﻿using Ardalis.SharedKernel;
-using AutoMapper;
-using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
-using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.FlightAggregate.Specifications;
 
 namespace Training.FlightBooking.Core.Services;
 

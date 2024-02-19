@@ -2,9 +2,9 @@
 
 namespace Training.FlightBooking.Core.PassengerAggregate.Specifications;
 
-public sealed class GetUserByEmail : SingleResultSpecification<Passenger>
+public sealed class GetPassengerByEmail : SingleResultSpecification<Passenger>
 {
-    public GetUserByEmail(string email)
+    public GetPassengerByEmail(string email)
     {
         Query.Where(e=>e.Email == email);
     }

@@ -11,6 +11,6 @@ public class UpdateAirplaneCapacityService(IRepository<Airplane> airplaneReposit
         var airplane = await airplaneRepository.GetByIdAsync(id, token);
         if (airplane is null) throw new ArgumentException("Airplane not found");
         airplane.UpdateCapacity(capacity);
-        await airplaneRepository.SaveChangesAsync(token);
+        await airplaneRepository.UpdateAsync(airplane, token);
     }
 }

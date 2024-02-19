@@ -8,7 +8,7 @@ public sealed class GetFlightById : SingleResultSpecification<Flight>
     public GetFlightById(Guid id)
     {
         Query
-            .Where(x => x.Id == id);
+            .Where(x => x.Id == id).AsNoTracking();
         
     }
 }

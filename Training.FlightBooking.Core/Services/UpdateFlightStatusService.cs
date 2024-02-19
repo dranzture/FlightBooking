@@ -16,6 +16,6 @@ public class UpdateFlightStatusService(IRepository<Flight> repository)
         if (flight is null) throw new ArgumentException("Flight not found");
 
         flight.UpdateStatus(status);
-        await repository.SaveChangesAsync(token);
+        await repository.UpdateAsync(flight, token);
     }
 }

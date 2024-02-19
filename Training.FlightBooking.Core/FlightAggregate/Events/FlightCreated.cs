@@ -1,4 +1,4 @@
-﻿using Ardalis.SharedKernel;
+﻿using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Events;
 

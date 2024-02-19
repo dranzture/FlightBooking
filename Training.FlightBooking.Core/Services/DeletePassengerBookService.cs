@@ -14,6 +14,6 @@ public class DeletePassengerBookService(IRepository<Booking> repository) : IDele
         if (booking is null) throw new ArgumentException("Booking not found");
         
         booking.CancelBooking();
-        await repository.SaveChangesAsync(token);
+        await repository.UpdateAsync(booking, token);
     }
 }

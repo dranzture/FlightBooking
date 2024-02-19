@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Training.FlightBooking.Core.AirplaneAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
 
 namespace Training.IntegrationTest.Infrastructure.Data.Configurations;
 

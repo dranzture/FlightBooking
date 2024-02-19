@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
-using Ardalis.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.PassengerAggregate;
+using Training.FlightBooking.Core.Shared;
+using Training.IntegrationTest.Infrastructure.Interfaces;
 
 namespace Training.IntegrationTest.Infrastructure.Data;
 
@@ -28,9 +29,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
-        int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         
-        var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
+        var entitiesWithEvents = ChangeTracker.Entries<EntityBase<Guid>>()
             .Select(e => e.Entity)
             .Where(e => e.DomainEvents.Any())
             .ToArray();
@@ -39,9 +40,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
         if (dispatcher == null) return result;
 
         // dispatch events only if save was successful
-
         await dispatcher.DispatchAndClearEvents(entitiesWithEvents);
-
+        
         return result;
     }
 

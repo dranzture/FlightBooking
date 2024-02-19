@@ -19,13 +19,13 @@ public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoin
         {
             s.Description = "Create a new flight";
             s.ExampleRequest = new CreateBookingRequest(new Guid(),
-                new PassengerDto("Polat", "Coban", "polatcoban@gmail.com", new DateOnly(1990, 8, 28)), 2);
+                new Guid(), 2);
         });
     }
 
     public override async Task HandleAsync(CreateBookingRequest req, CancellationToken ct)
     {
-        var response = await service.BookPassenger(req.FlightId, mapper.Map<Passenger>(req.Passenger), req.Seats, ct);
+        var response = await service.BookPassenger(req.FlightId, req.PassengerId, req.Seats, ct);
         await SendOkAsync(response, ct);
     }
 }

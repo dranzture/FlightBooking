@@ -6,10 +6,11 @@ using Training.FlightBooking.Core.ValueObjects;
 
 namespace Training.FlightBooking.Core.FlightAggregate;
 
-public class Flight
-    : EntityBase<Guid>, IAggregateRoot
+public class Flight : Shared.EntityBase<Guid>, IAggregateRoot
 {
-    public Flight(){}
+    public Flight()
+    {
+    }
 
     public Flight(Guid airplaneId, int availableSeats, DateTime arrival, DateTime departure, Location from, Location to)
     {
@@ -17,12 +18,13 @@ public class Flight
         From = from;
         Arrival = Guard.Against.OutOfSQLDateRange(arrival);
         Departure = Guard.Against.OutOfSQLDateRange(departure);
-        AvailableSeats = availableSeats;
+        Seats = availableSeats;
         BookedSeats = 0;
         AirplaneId = airplaneId;
-        
+
         RegisterDomainEvent(new FlightCreated(this));
     }
+
     public Location To { get; private set; }
 
     public Location From { get; private set; }
@@ -31,18 +33,17 @@ public class Flight
 
     public DateTime Departure { get; private set; }
 
-    public int AvailableSeats { get; private set; }
-    
+    public int Seats { get; private set; }
+
     public int BookedSeats { get; private set; }
-    
+
 
     public Airplane Airplane { get; private set; }
-    
+
     public Guid AirplaneId { get; private set; }
-    
+
     public FlightStatus Status { get; private set; } = FlightStatus.OnTime;
-    
-    
+
 
     public void UpdateStatus(FlightStatus status)
     {
@@ -51,17 +52,17 @@ public class Flight
 
     public void UpdateArrivalDateTime(DateTime arrival)
     {
-        if (arrival <= Departure)
+        if (arrival > Departure)
         {
             throw new ArgumentException("Arrival time cannot be before departure time");
         }
 
         Arrival = Guard.Against.OutOfSQLDateRange(arrival);
     }
-    
+
     public void UpdateDepartureDateTime(DateTime departure)
     {
-        if (departure >= Arrival)
+        if (departure <= Arrival)
         {
             throw new ArgumentException("Departure time cannot be after arrival time");
         }
@@ -69,27 +70,23 @@ public class Flight
         Departure = Guard.Against.OutOfSQLDateRange(departure);
     }
 
-    public void UpdateSeatAvailability(int seats, ObserveFlightAvailability observe)
+    public void IncreaseSeatAvailability(int occupiedSeats)
     {
-        switch (observe)
+        if (Seats - BookedSeats < occupiedSeats)
         {
-            case var observeType when observeType == ObserveFlightAvailability.Increase:
-                if (BookedSeats + seats > AvailableSeats) 
-                {
-                    throw new ArgumentException("Cannot increase seat availability due to capacity limit");
-                }
-                BookedSeats += seats;
-                break;
-            case var observeType when observeType == ObserveFlightAvailability.Decrease:
-                if (BookedSeats - seats < 0)
-                {
-                    throw new ArgumentException("More seats have been requested to remove than booked seats");
-                }
-                BookedSeats -= seats;
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(observe), "Unknown flight availability operation");
+            throw new ArgumentException("Cannot increase seat availability due to capacity limit");
         }
 
+        BookedSeats -= occupiedSeats;
+    }
+
+    public void DecreaseSeatAvailability(int occupiedSeats)
+    {
+        if (BookedSeats + occupiedSeats > Seats)
+        {
+            throw new ArgumentException("More seats have been requested to remove than booked seats");
+        }
+
+        BookedSeats += occupiedSeats;
     }
 }

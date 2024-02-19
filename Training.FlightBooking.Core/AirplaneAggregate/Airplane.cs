@@ -3,7 +3,7 @@ using Ardalis.SharedKernel;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate;
 
-public class Airplane : EntityBase<Guid>, IAggregateRoot
+public class Airplane : Shared.EntityBase<Guid>, IAggregateRoot
 {
     public Airplane(){}
     /// <summary>

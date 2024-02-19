@@ -5,9 +5,8 @@ using MediatR;
 using MediatR.Pipeline;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.BookingAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.PassengerAggregate;
+using IDomainEventDispatcher = Training.IntegrationTest.Infrastructure.Interfaces.IDomainEventDispatcher;
+using MediatRDomainEventDispatcher = Training.FlightBooking.Core.Shared.MediatRDomainEventDispatcher;
 using Module = Autofac.Module;
 
 namespace Training.IntegrationTest.Infrastructure;
@@ -31,10 +30,22 @@ public class AutofacInfrastructureModule : Module
     }
   }
 
+  private void LoadAssemblies()
+  {
+    // TODO: Replace these types with any type in the appropriate assembly/project
+    var flightAssembly = Assembly.GetAssembly(typeof(Flight));
+    var bookingAssembly = Assembly.GetAssembly(typeof(Booking));
+    
+    var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
 
+    AddToAssembliesIfNotNull(flightAssembly);
+    AddToAssembliesIfNotNull(bookingAssembly);
+    AddToAssembliesIfNotNull(infrastructureAssembly);
+  }
 
   protected override void Load(ContainerBuilder builder)
   {
+    LoadAssemblies();
     if (_isDevelopment)
     {
       RegisterDevelopmentOnlyDependencies(builder);
@@ -44,7 +55,7 @@ public class AutofacInfrastructureModule : Module
       RegisterProductionOnlyDependencies(builder);
     }
     RegisterEF(builder);
-    RegisterMediatR(builder);
+    DomainEventDispatcher(builder);
   }
 
   private void RegisterEF(ContainerBuilder builder)
@@ -55,38 +66,12 @@ public class AutofacInfrastructureModule : Module
       .InstancePerLifetimeScope();
   }
 
-  private void RegisterMediatR(ContainerBuilder builder)
+  private void DomainEventDispatcher(ContainerBuilder builder)
   {
-    builder
-      .RegisterType<Mediator>()
-      .As<IMediator>()
-      .InstancePerLifetimeScope();
-
-    builder
-      .RegisterGeneric(typeof(LoggingBehavior<,>))
-      .As(typeof(IPipelineBehavior<,>))
-      .InstancePerLifetimeScope();
-
     builder
       .RegisterType<MediatRDomainEventDispatcher>()
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
-
-    var mediatrOpenTypes = new[]
-    {
-      typeof(IRequestHandler<,>),
-      typeof(IRequestExceptionHandler<,,>),
-      typeof(IRequestExceptionAction<,>),
-      typeof(INotificationHandler<>),
-    };
-
-    foreach (var mediatrOpenType in mediatrOpenTypes)
-    {
-      builder
-        .RegisterAssemblyTypes(_assemblies.ToArray())
-        .AsClosedTypesOf(mediatrOpenType)
-        .AsImplementedInterfaces();
-    }
   }
 
   private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)

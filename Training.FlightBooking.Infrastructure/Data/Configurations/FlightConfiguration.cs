@@ -11,10 +11,11 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
         builder.HasKey(e => e.Id);
         builder.OwnsOne(e => e.To);
         builder.OwnsOne(e => e.From);
+
         builder.HasOne(e => e.Airplane)
             .WithOne()
             .HasForeignKey<Flight>(e => e.AirplaneId);
-        
+
         builder.Property(e => e.Status)
             .HasConversion(e => e.Value, e => FlightStatus.FromValue(e));
     }
