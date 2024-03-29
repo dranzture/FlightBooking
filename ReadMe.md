@@ -1,3 +1,5 @@
+Install Docker Desktop and run the compose file first for the database.
+
 To build migrations:
 
 Change 'InitialCreate' and make sure your root directory is /Training.FlightBooking.API
