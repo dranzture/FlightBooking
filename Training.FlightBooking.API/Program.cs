@@ -58,7 +58,7 @@ var app = builder.Build();
 // }
 
 //This is a debugger tool of AutoMapper to validate which fields are mapped
-//app.ValidateAutoMapper();
+app.ValidateAutoMapper();
 
 app.UseFastEndpoints();
 

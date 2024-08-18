@@ -3,7 +3,7 @@ using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.DTOs;
 using IMapper = AutoMapper.IMapper;
 
-namespace Training.FlightBooking.API.Endpoints.Booking;
+namespace Training.FlightBooking.API.Endpoints.Bookings;
 
 public class ListBookings(IRetrieveAllBookingsService service, IMapper mapper) : EndpointWithoutRequest<IEnumerable<BookingDto>>
 {

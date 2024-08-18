@@ -1,8 +1,7 @@
 ﻿using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 
-namespace Training.FlightBooking.Core.Services;
+namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
 public class UpdateAirplaneCapacityService(IRepository<Airplane> airplaneRepository) : IUpdateAirplaneCapacityService
 {

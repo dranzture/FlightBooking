@@ -1,11 +1,9 @@
 ﻿using FastEndpoints;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Requests;
-using Training.FlightBooking.Core.DTOs;
-using Training.FlightBooking.Core.PassengerAggregate;
 using IMapper = AutoMapper.IMapper;
 
-namespace Training.FlightBooking.API.Endpoints.Booking;
+namespace Training.FlightBooking.API.Endpoints.Bookings;
 
 public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoint<CreateBookingRequest, Guid>
 {

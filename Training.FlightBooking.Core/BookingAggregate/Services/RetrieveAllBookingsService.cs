@@ -1,8 +1,7 @@
 ﻿using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 
-namespace Training.FlightBooking.Core.Services;
+namespace Training.FlightBooking.Core.BookingAggregate.Services;
 
 public class RetrieveAllBookingsService(IRepository<Booking> repository) : IRetrieveAllBookingsService
 {

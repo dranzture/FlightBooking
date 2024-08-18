@@ -1,13 +1,9 @@
 ﻿using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
-using Training.FlightBooking.Core.FlightAggregate;
 
-
-namespace Training.FlightBooking.Core.Services;
+namespace Training.FlightBooking.Core.BookingAggregate.Services;
 
 public class BookPassengerService(
-    IRepository<Flight> flightRepository,
     IRepository<Booking> bookingRepository,
     IEnumerable<IBookPassengerValidationRule> rules) : IBookPassengerService
 {

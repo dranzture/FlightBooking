@@ -2,7 +2,7 @@
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.AirplaneAggregate.Requests;
 
-namespace Training.FlightBooking.API.Endpoints.Airplane;
+namespace Training.FlightBooking.API.Endpoints.Airplanes;
 
 public class UpdateCapacity(IUpdateAirplaneCapacityService updateCapacityService) : Endpoint<UpdateCapacityRequest>
 {

@@ -1,11 +1,11 @@
 ﻿using FastEndpoints;
 using Training.FlightBooking.Core.DTOs;
+using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
-using Training.FlightBooking.Core.ValueObjects;
 using IMapper = AutoMapper.IMapper;
 
-namespace Training.FlightBooking.API.Endpoints.Flight;
+namespace Training.FlightBooking.API.Endpoints.Flights;
 
 public class Create(ICreateFlightService createFlightService, IMapper mapper) : Endpoint<CreateFlightRequest>
 {
@@ -25,22 +25,15 @@ public class Create(ICreateFlightService createFlightService, IMapper mapper) : 
                     new LocationDto("LAX", "Los Angeles"),
                     new LocationDto("JFK", "New York"),
                     DateTime.Now.AddDays(2).AddHours(12),
-                    DateTime.Now.AddDays(2)
+                    DateTime.Now.AddDays(2),
+                    FlightStatus.OnTime
                 ));
         });
     }
 
     public override async Task HandleAsync(CreateFlightRequest req, CancellationToken ct)
     {
-        var flight = new Core.FlightAggregate.Flight(
-            req.Flight.AirplaneId,
-            req.Flight.AvailableSeats,
-            req.Flight.Departure,
-            req.Flight.Arrival,
-            mapper.Map<Location>(req.Flight.To),
-            mapper.Map<Location>(req.Flight.From)
-          );
-
+        var flight = mapper.Map<Flight>(req.Flight);
         await createFlightService.CreateFlight(flight, ct);
         await SendOkAsync(ct);
     }
