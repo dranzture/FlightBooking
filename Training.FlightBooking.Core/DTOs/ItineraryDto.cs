@@ -1,6 +1,7 @@
 ﻿namespace Training.FlightBooking.Core.DTOs;
 
-public class ItineraryDto(string firstName,
+public class ItineraryDto(
+    string firstName,
     string lastName,
     string email,
     string? phoneNumber = null)

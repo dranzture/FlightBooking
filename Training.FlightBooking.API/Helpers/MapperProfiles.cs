@@ -21,8 +21,11 @@ public class MapperProfiles : Profile
             .ForMember(dest => dest.Seats, opt => opt.Ignore())
             .ForMember(dest => dest.BookedSeats, opt => opt.Ignore())
             .ForMember(dest => dest.Airplane, opt => opt.Ignore())
-            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
-            .ReverseMap();
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
+        CreateMap<Flight, FlightDto>()
+            .ForMember(dest => dest.Id, opt =>
+                opt.MapFrom(src => new Guid(src.Id.ToString())))
+            .ForMember(dest => dest.AvailableSeats, opt => opt.Ignore());
 
         #endregion
 
@@ -31,6 +34,7 @@ public class MapperProfiles : Profile
         CreateMap<BookingDto, Booking>()
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ReverseMap();
+
         CreateMap<CreateBookingRequest, Booking>()
             .ForMember(dest => dest.Status, opt => opt.Ignore())
             .ForMember(dest => dest.Flight, opt => opt.Ignore())
@@ -43,9 +47,10 @@ public class MapperProfiles : Profile
         #region AirplaneTransformations
 
         CreateMap<AirplaneDto, Airplane>()
-            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
-            .ReverseMap();
-
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
+        CreateMap<Airplane, AirplaneDto>()
+            .ForMember(dest => dest.Id, opt =>
+                opt.MapFrom(src => new Guid(src.Id.ToString())));
         #endregion
 
         #region LocationTransformations
@@ -58,9 +63,12 @@ public class MapperProfiles : Profile
 
         CreateMap<PassengerDto, Passenger>()
             .ForMember(dest => dest.Bookings, opt => opt.Ignore())
-            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
-            .ReverseMap();
+            .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
 
+        CreateMap<Passenger, PassengerDto>()
+            .ForMember(dest => dest.Id, opt =>
+                opt.MapFrom(src => new Guid(src.Id.ToString())));
+        
         #endregion
 
         #region ItineraryTransformations

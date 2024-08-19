@@ -7,6 +7,8 @@ public class RetrieveAllBookingsService(IRepository<Booking> repository) : IRetr
 {
     public async Task<IEnumerable<Booking>> GetAllBookings(CancellationToken token)
     {
-        return await repository.ListAsync(token);
+        var result = await repository.ListAsync(token);
+        
+        return result;
     }
-}
+} 

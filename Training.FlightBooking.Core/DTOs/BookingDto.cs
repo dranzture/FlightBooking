@@ -3,13 +3,14 @@ using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.DTOs;
 
-public class BookingDto(FlightDto flight, PassengerDto passenger, int seats, BookingStatus status) : BaseDto<Guid>
+public class BookingDto(FlightDto flight, PassengerDto passenger, int seats, BookingStatus status)
+    : BaseDto<Guid>
 {
-    public FlightDto Flight { get;  set; } = flight;
+    public FlightDto Flight { get; private set; } = flight;
 
-    public PassengerDto Passenger { get; set; } = passenger;
+    public PassengerDto Passenger { get; private set; } = passenger;
 
-    public int Seats { get; set; } = seats;
+    public int Seats { get; private set; } = seats;
 
-    public BookingStatus Status { get; set; } = status;
+    public BookingStatus Status { get; private set; } = status;
 }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Training.FlightBooking.Core.BookingAggregate.Notifications;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.IntegrationTest.Infrastructure.Handlers;

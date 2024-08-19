@@ -1,8 +1,7 @@
-﻿using Ardalis.SharedKernel;
-using MediatR;
-using Training.FlightBooking.Core.DTOs;
+﻿using Training.FlightBooking.Core.DTOs;
+using DomainEventBase = Training.FlightBooking.Core.Shared.DomainEventBase;
 
-namespace Training.FlightBooking.Core.Shared;
+namespace Training.FlightBooking.Core.BookingAggregate.Notifications;
 
 public class SendNotification(PassengerDto passenger, ItineraryDto? itinerary = null) : DomainEventBase
 {
