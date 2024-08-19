@@ -2,5 +2,5 @@
 
 public interface IUpdateAirplaneCapacityService
 {
-    Task UpdateCapacity(Guid id, int capacity, CancellationToken token);
+    Task UpdateCapacityAsync(Guid id, int capacity, CancellationToken token);
 }

@@ -2,10 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.BookingAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
-using Training.FlightBooking.Core.FlightAggregate.Validations;
 
 namespace CreateBookingServiceTests;
 

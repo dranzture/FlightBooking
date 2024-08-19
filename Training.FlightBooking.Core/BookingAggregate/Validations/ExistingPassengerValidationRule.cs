@@ -8,12 +8,10 @@ namespace Training.FlightBooking.Core.BookingAggregate.Validations;
 
 public class ExistingPassengerValidationRule(IRepository<Booking> repository) : IBookPassengerValidationRule
 {
-    private readonly IRepository<Booking> _repository = repository;
-    
     public async Task ValidateAsync(Booking booking, CancellationToken token)
     {
         var passengerNoTrack = new FindByFlightIdAndPassengerId(booking.FlightId,booking.PassengerId);
-        var passenger = await _repository.FirstOrDefaultAsync(passengerNoTrack, token);
+        var passenger = await repository.FirstOrDefaultAsync(passengerNoTrack, token);
         if (passenger is not null) throw new ArgumentException("Passenger has already booked flight");
     }
 }

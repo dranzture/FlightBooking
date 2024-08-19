@@ -2,5 +2,5 @@
 
 public interface ICreateAirplaneService
 {
-    Task<Guid> CreateAirplane(Airplane airplane, CancellationToken cancellationToken);
+    Task<Guid> CreateAirplaneAsync(Airplane airplane, CancellationToken cancellationToken);
 }

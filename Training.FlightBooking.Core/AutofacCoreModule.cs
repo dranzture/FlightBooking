@@ -18,7 +18,12 @@ public class AutofacCoreModule : Module
         builder.RegisterType<CreateAirplaneService>().As<ICreateAirplaneService>().InstancePerLifetimeScope();
         builder.RegisterType<UpdateAirplaneCapacityService>().As<IUpdateAirplaneCapacityService>()
             .InstancePerLifetimeScope();
-
+        builder.RegisterType<UpdateAirplaneService>().As<IUpdateAirplaneService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(ICreateAirplaneValidationRule).Assembly)
+            .Where(t => typeof(ICreateAirplaneValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        
         builder.RegisterType<BookPassengerService>().As<IBookPassengerService>().InstancePerLifetimeScope();
         builder.RegisterType<RetrieveAllBookingsService>().As<IRetrieveAllBookingsService>().InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(IBookPassengerValidationRule).Assembly)

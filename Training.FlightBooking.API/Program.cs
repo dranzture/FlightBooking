@@ -1,6 +1,5 @@
-using System.Reflection;
+using Ardalis.GuardClauses;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-if (connectionString is null) throw new InvalidOperationException("Connection string not found");
+Guard.Against.Null(connectionString);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));

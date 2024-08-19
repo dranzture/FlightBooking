@@ -8,9 +8,10 @@ namespace Training.FlightBooking.API.Endpoints.Airplanes;
 
 public class Create(ICreateAirplaneService createAirplaneService, IMapper mapper) : Endpoint<CreateAirplaneRequest, Guid>
 {
+    private const string Route = "/api/Airplanes/Create";
     public override void Configure()
     {
-        Post("/api/Airplane/Create");
+        Post(Route);
         AllowAnonymous();
         Summary(e =>
         {
@@ -21,7 +22,7 @@ public class Create(ICreateAirplaneService createAirplaneService, IMapper mapper
 
     public override async Task HandleAsync(CreateAirplaneRequest req, CancellationToken ct)
     {
-        var result = await createAirplaneService.CreateAirplane(mapper.Map<Airplane>(req.Airplane), ct);
+        var result = await createAirplaneService.CreateAirplaneAsync(mapper.Map<Airplane>(req.Airplane), ct);
         await SendOkAsync(result, ct);
     }
 }

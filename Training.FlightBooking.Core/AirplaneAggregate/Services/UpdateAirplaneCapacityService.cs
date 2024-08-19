@@ -5,7 +5,7 @@ namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
 public class UpdateAirplaneCapacityService(IRepository<Airplane> airplaneRepository) : IUpdateAirplaneCapacityService
 {
-    public async Task UpdateCapacity(Guid id, int capacity, CancellationToken token)
+    public async Task UpdateCapacityAsync(Guid id, int capacity, CancellationToken token)
     {
         var airplane = await airplaneRepository.GetByIdAsync(id, token);
         if (airplane is null) throw new ArgumentException("Airplane not found");

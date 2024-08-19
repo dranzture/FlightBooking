@@ -6,9 +6,10 @@ namespace Training.FlightBooking.API.Endpoints.Airplanes;
 
 public class UpdateCapacity(IUpdateAirplaneCapacityService updateCapacityService) : Endpoint<UpdateCapacityRequest>
 {
+    private const string Route = "/api/Airplanes/UpdateCapacity";
     public override void Configure()
     {
-        Patch("/api/Airplane/UpdateCapacity");
+        Patch(Route);
         AllowAnonymous();
         Summary(e =>
         {
@@ -19,7 +20,7 @@ public class UpdateCapacity(IUpdateAirplaneCapacityService updateCapacityService
 
     public override async Task HandleAsync(UpdateCapacityRequest req, CancellationToken ct)
     {
-        await updateCapacityService.UpdateCapacity(req.Id, req.Capacity, ct);
+        await updateCapacityService.UpdateCapacityAsync(req.Id, req.Capacity, ct);
         await SendOkAsync(ct);
     }
 }

@@ -1,10 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Training.FlightBooking.Core.AirplaneAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.ValueObjects;
-
-namespace CreateBookingServiceTests;
+﻿namespace CreateBookingServiceTests;
 
 public class CreateFlightServiceTests(FunctionalTestFactory factory) : BaseServiceTest(factory)
 {

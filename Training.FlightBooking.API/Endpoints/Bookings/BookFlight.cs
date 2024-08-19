@@ -7,7 +7,7 @@ namespace Training.FlightBooking.API.Endpoints.Bookings;
 
 public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoint<CreateBookingRequest, Guid>
 {
-    private const string Route = "api/Booking/Create";
+    private const string Route = "api/Bookings/Create";
 
     public override void Configure()
     {
