@@ -21,7 +21,7 @@ public class Airplane : Shared.EntityBase<Guid>, IAggregateRoot
         Capacity = Guard.Against.Negative(capacity);
         Id = Guid.NewGuid();
     }
-
+    
     public int Year { get; private set; }
 
     public string Model { get; private set; }

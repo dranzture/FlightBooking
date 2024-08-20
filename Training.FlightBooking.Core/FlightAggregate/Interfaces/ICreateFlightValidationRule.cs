@@ -1,6 +1,8 @@
-﻿namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
+﻿using FluentValidation.Results;
+
+namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
 
 public interface ICreateFlightValidationRule
 {
-    Task ValidateAsync(Flight flight, CancellationToken token);
+    Task<ValidationFailure?> ValidateAsync(Flight flight, CancellationToken token);
 }

@@ -33,8 +33,8 @@ public class Create(ICreateFlightService createFlightService, IMapper mapper) : 
 
     public override async Task HandleAsync(CreateFlightRequest req, CancellationToken ct)
     {
-        var flight = mapper.Map<Flight>(req.Flight);
-        await createFlightService.CreateFlight(flight, ct);
+
+        await createFlightService.CreateFlight(req, ct);
         await SendOkAsync(ct);
     }
 }

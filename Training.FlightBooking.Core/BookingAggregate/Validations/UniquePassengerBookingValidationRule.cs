@@ -1,4 +1,6 @@
 ﻿using Ardalis.SharedKernel;
+using FluentValidation;
+using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Specifications;
 
@@ -6,13 +8,12 @@ namespace Training.FlightBooking.Core.BookingAggregate.Validations;
 
 public class UniquePassengerBookingValidationRule(IRepository<Booking> repository) : IBookPassengerValidationRule
 {
-    public async Task ValidateAsync(Booking booking, CancellationToken token)
+    public async Task<ValidationFailure?> ValidateAsync(Booking booking, CancellationToken token)
     {
         var spec = new FindByFlightIdAndPassengerId(booking.FlightId, booking.PassengerId);
         var existingBooking = await repository.FirstOrDefaultAsync(spec, token);
-        if (existingBooking != null)
-        {
-            throw new InvalidOperationException("This passenger already has a booking for this flight.");
-        }
+        return existingBooking is not null
+            ? new ValidationFailure(nameof(Booking), "Passenger has already booked flight")
+            : null;
     }
 }

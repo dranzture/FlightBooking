@@ -2,6 +2,7 @@ using Ardalis.GuardClauses;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using FastEndpoints;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -33,7 +34,7 @@ builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title
 builder.Services.AddAutoMapper(typeof(MapperProfiles));
 
 builder.Services.AddFastEndpoints();
-
+builder.Services.AddValidatorsFromAssemblyContaining<IValidator>();
 builder.Services.AddEndpointsApiExplorer();
 
 

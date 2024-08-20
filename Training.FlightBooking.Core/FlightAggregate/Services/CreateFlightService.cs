@@ -1,21 +1,36 @@
 ﻿using Ardalis.SharedKernel;
+using AutoMapper;
+using FluentValidation.Results;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Services;
 
-public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICreateFlightValidationRule> validationRules) : ICreateFlightService
+public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICreateFlightValidationRule> rules, IMapper mapper) : ICreateFlightService
 {
-    public async Task<Flight> CreateFlight(Flight flight, CancellationToken token)
+    public async Task<Result<Guid>> CreateFlight(CreateFlightRequest request, CancellationToken cancellationToken)
     {
-        foreach (var rule in validationRules)
+        var flight = mapper.Map<Flight>(request.Flight);
+        var validationFailures = new List<ValidationFailure>();
+
+        foreach (var rule in rules)
         {
-            await rule.ValidateAsync(flight, token);
+            var validationFailure = await rule.ValidateAsync(flight, cancellationToken);
+            if (validationFailure is not null)
+            {
+                validationFailures.Add(validationFailure);
+            }
         }
 
-        await repository.AddAsync(flight, token);
-        await repository.SaveChangesAsync(token);
+        if (validationFailures.Count > 0)
+        {
+            return Result<Guid>.Failure(validationFailures);
+        }
+        await repository.AddAsync(flight, cancellationToken);
+        await repository.SaveChangesAsync(cancellationToken);
         
         
-        return flight;
+        return Result<Guid>.Success(flight.Id);
     }
 }

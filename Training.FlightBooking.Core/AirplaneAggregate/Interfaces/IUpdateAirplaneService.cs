@@ -1,8 +1,9 @@
-﻿using Training.FlightBooking.Core.DTOs;
+﻿using Training.FlightBooking.Core.AirplaneAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 
 public interface IUpdateAirplaneService
 {
-    Task<AirplaneDto> UpdateAirplane(AirplaneDto airplane, CancellationToken token); 
+    Task<Result> UpdateAirplane(UpdateAirplaneRequest erq, CancellationToken token); 
 }

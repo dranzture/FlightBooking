@@ -1,6 +1,9 @@
-﻿namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
+﻿using Training.FlightBooking.Core.AirplaneAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
+
+namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 
 public interface ICreateAirplaneService
 {
-    Task<Guid> CreateAirplaneAsync(Airplane airplane, CancellationToken cancellationToken);
+    Task<Result<Guid>> CreateAirplaneAsync(CreateAirplaneRequest airplane, CancellationToken cancellationToken);
 }

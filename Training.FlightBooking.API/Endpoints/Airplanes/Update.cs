@@ -1,16 +1,17 @@
 ﻿using FastEndpoints;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.AirplaneAggregate.Requests;
-using Training.FlightBooking.Core.DTOs;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.API.Endpoints.Airplanes;
 
-public class Update : Endpoint<UpdateAirplaneRequest, AirplaneDto>
+public class Update(IUpdateAirplaneService service) : Endpoint<UpdateAirplaneRequest, Result>
 {
     private const string Route = "/api/Airplanes/Update";
 
     public override void Configure()
     {
-        Post(Route);
+        Patch(Route);
         AllowAnonymous();
         Summary(e =>
         {
@@ -21,7 +22,16 @@ public class Update : Endpoint<UpdateAirplaneRequest, AirplaneDto>
 
     public override async Task HandleAsync(UpdateAirplaneRequest req, CancellationToken ct)
     {
-        //var result = await createAirplaneService.CreateAirplane(mapper.Map<Airplane>(req.Airplane), ct);
-        await SendOkAsync(ct);
+        var result = await service.UpdateAirplane(req, ct);
+        if (result is { IsSuccess: true })
+        {
+            await SendOkAsync(ct);
+        }
+
+        if (result is { IsSuccess: false, Errors.Count: > 0 })
+        {
+            ValidationFailures.AddRange(result.Errors);
+            await SendErrorsAsync(cancellation: ct);
+        }
     }
 }
