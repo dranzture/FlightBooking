@@ -1,10 +1,9 @@
 ﻿using Ardalis.SharedKernel;
-using FluentValidation;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Specifications;
 
-namespace Training.FlightBooking.Core.BookingAggregate.Validations;
+namespace Training.FlightBooking.Core.BookingAggregate.Validations.Domain;
 
 public class UniquePassengerBookingValidationRule(IRepository<Booking> repository) : IBookPassengerValidationRule
 {

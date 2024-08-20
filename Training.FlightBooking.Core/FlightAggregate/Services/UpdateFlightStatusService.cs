@@ -1,17 +1,28 @@
 ﻿using Ardalis.SharedKernel;
+using AutoMapper;
+using FluentValidation.Results;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Services;
 
 public class UpdateFlightStatusService(IRepository<Flight> repository)
     : IUpdateFlightStatusService
 {
-    public async Task UpdateFlightStatus(Guid flightId, FlightStatus status, CancellationToken token)
+    public async Task<Result> UpdateFlightStatus(UpdateFlightRequest request, CancellationToken cancellationToken)
     {
-        var flight = await repository.GetByIdAsync(flightId, token);
-        if (flight is null) throw new ArgumentException("Flight not found");
+        var flight = await repository.GetByIdAsync(request.Id, cancellationToken);
+        if (flight is null)
+        {
+            var validationFailures = new List<ValidationFailure>
+                { new (nameof(Flight), "Flight not found") };
+            return Result<Guid>.Failure(validationFailures);
+        }
 
-        flight.UpdateStatus(status);
-        await repository.UpdateAsync(flight, token);
+        flight.UpdateStatus(request.Status);
+        await repository.UpdateAsync(flight, cancellationToken);
+
+        return Result.Success();
     }
 }

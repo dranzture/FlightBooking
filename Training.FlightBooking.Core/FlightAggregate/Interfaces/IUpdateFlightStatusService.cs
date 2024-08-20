@@ -1,6 +1,9 @@
-﻿namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
+﻿using Training.FlightBooking.Core.FlightAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
+
+namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
 
 public interface IUpdateFlightStatusService
 {
-    public Task UpdateFlightStatus(Guid flightId, FlightStatus status, CancellationToken token);
+    public Task<Result> UpdateFlightStatus(UpdateFlightRequest req, CancellationToken token);
 }

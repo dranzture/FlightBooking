@@ -26,15 +26,14 @@ public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoin
     public override async Task HandleAsync(CreateBookingRequest req, CancellationToken ct)
     {
         var result = await service.BookPassenger(req.FlightId, req.PassengerId, req.Seats, ct);
-        if (result.IsSuccess)
-        {
-            await SendOkAsync(result, ct);
-        }
-
         if (result is { IsSuccess: false, Errors.Count: > 0 })
         {
             ValidationFailures.AddRange(result.Errors);
             await SendErrorsAsync(cancellation: ct);
+        }
+        else
+        {
+            await SendOkAsync(result, ct);
         }
     }
 }

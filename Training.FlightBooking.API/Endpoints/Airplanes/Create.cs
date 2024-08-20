@@ -23,15 +23,14 @@ public class Create(ICreateAirplaneService createAirplaneService, IMapper mapper
     public override async Task HandleAsync(CreateAirplaneRequest req, CancellationToken ct)
     {
         var result = await createAirplaneService.CreateAirplaneAsync(req, ct);
-        if (result is { IsSuccess: true })
-        {
-            await SendOkAsync(result, ct);
-        }
-
         if (result is { IsSuccess: false, Errors.Count: > 0 })
         {
             ValidationFailures.AddRange(result.Errors);
             await SendErrorsAsync(cancellation: ct);
+        }
+        else
+        {
+            await SendOkAsync(result, ct);
         }
     }
 }

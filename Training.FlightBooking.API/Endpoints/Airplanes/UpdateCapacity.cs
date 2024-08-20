@@ -25,15 +25,14 @@ public class UpdateCapacity(IUpdateAirplaneCapacityService updateCapacityService
     public override async Task HandleAsync(UpdateAirplaneCapacityRequest req, CancellationToken ct)
     {
         var result = await updateCapacityService.UpdateCapacityAsync(req, ct);
-        if (result is { IsSuccess: true })
-        {
-            await SendOkAsync(ct);
-        }
-
         if (result is { IsSuccess: false, Errors.Count: > 0 })
         {
             ValidationFailures.AddRange(result.Errors);
             await SendErrorsAsync(cancellation: ct);
+        }
+        else
+        {
+            await SendOkAsync(result, ct);
         }
     }
 }

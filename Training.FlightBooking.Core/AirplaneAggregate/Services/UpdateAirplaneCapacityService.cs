@@ -7,33 +7,26 @@ using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
-public class UpdateAirplaneCapacityService(IRepository<Airplane> airplaneRepository, IEnumerable<IUpdateAirplaneValidationRule> rules, IMapper mapper) : IUpdateAirplaneCapacityService
+public class UpdateAirplaneCapacityService(
+    IRepository<Airplane> airplaneRepository,
+    IEnumerable<IUpdateAirplaneValidationRule> rules,
+    IMapper mapper) : IUpdateAirplaneCapacityService
 {
-    public async Task<Result> UpdateCapacityAsync(UpdateAirplaneCapacityRequest req, CancellationToken cancellationToken)
+    public async Task<Result> UpdateCapacityAsync(UpdateAirplaneCapacityRequest req,
+        CancellationToken cancellationToken)
     {
-        var airplaneReq = mapper.Map<Airplane>(req);
-        var validationFailures = new List<ValidationFailure>();
-
-        foreach (var rule in rules)
+        var airplane = await airplaneRepository.GetByIdAsync(req.Id, cancellationToken);
+        if (airplane is null)
         {
-            var validationFailure = await rule.ValidateAsync(airplaneReq, cancellationToken);
-            if (validationFailure is not null)
-            {
-                validationFailures.Add(validationFailure);
-            }
-        }
-
-        if (validationFailures.Count > 0)
-        {
+            var validationFailures = new List<ValidationFailure>
+                { new (nameof(Airplane), "Airplane not found") };
             return Result<Guid>.Failure(validationFailures);
         }
 
-        var airplane = await airplaneRepository.GetByIdAsync(req.Id, cancellationToken);
-        
-        airplane!.UpdateCapacity(req.Capacity);
-        
+        airplane.UpdateCapacity(req.Capacity);
+
         await airplaneRepository.UpdateAsync(airplane, cancellationToken);
-        
+
         return Result.Success();
     }
 }

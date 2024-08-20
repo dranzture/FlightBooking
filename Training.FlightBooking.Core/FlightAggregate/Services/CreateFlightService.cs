@@ -27,6 +27,7 @@ public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICr
         {
             return Result<Guid>.Failure(validationFailures);
         }
+        
         await repository.AddAsync(flight, cancellationToken);
         await repository.SaveChangesAsync(cancellationToken);
         

@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Specifications;
 
-namespace Training.FlightBooking.Core.BookingAggregate.Validations;
+namespace Training.FlightBooking.Core.BookingAggregate.Validations.Domain;
 
 public class ExistingPassengerValidationRule(IRepository<Booking> repository) : IBookPassengerValidationRule
 {

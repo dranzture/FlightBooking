@@ -1,9 +1,10 @@
 ﻿using FastEndpoints;
 using Training.FlightBooking.Core.DTOs;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.API.Endpoints.Flights;
 
-public class ListFlights : Endpoint<EmptyRequest, List<FlightDto>>
+public class ListFlights : EndpointWithoutRequest<Result<IEnumerable<FlightDto>>>
 {
     private const string Route = "/api/Flight/List";
     
