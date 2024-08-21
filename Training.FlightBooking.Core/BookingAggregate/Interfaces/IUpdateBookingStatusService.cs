@@ -1,9 +1,9 @@
-﻿using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.FlightAggregate;
+﻿using Training.FlightBooking.Core.BookingAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
 
-public interface IUpdateBookingStatusService
+public interface ICancelBookingService
 {
-    Task UpdateBookingStatus(Flight flight, BookingStatus status, CancellationToken cancellationToken);
+    Task<Result> CancelBookingStatus(Guid id, CancellationToken cancellationToken);
 }

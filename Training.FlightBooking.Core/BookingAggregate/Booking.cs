@@ -46,6 +46,7 @@ public class Booking : Shared.EntityBase<Guid>, IAggregateRoot
         RegisterDomainEvent(new PassengerCanceledFlight(FlightId, PassengerId, Seats));
     }
     
+    
     public void AddPassenger(Guid passengerId)
     {
         PassengerId = passengerId;
