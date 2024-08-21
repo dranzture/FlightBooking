@@ -3,10 +3,9 @@ using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.AirplaneAggregate.Requests;
 using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.Shared;
-using IMapper = AutoMapper.IMapper;
 namespace Training.FlightBooking.API.Endpoints.Airplanes;
 
-public class Create(ICreateAirplaneService createAirplaneService, IMapper mapper) : Endpoint<CreateAirplaneRequest, Result<Guid>>
+public class Create(ICreateAirplaneService createAirplaneService) : Endpoint<CreateAirplaneRequest, Result<Guid>>
 {
     private const string Route = "/api/Airplanes/Create";
     public override void Configure()

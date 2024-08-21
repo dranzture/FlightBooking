@@ -25,7 +25,7 @@ public class AutofacCoreModule : Module
             .AsImplementedInterfaces();
         
         builder.RegisterType<BookPassengerService>().As<IBookPassengerService>().InstancePerLifetimeScope();
-        builder.RegisterType<RetrieveAllBookingsService>().As<IRetrieveAllBookingsService>().InstancePerLifetimeScope();
+        builder.RegisterType<ListBookingsService>().As<IListBookingsService>().InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(IBookPassengerValidationRule).Assembly)
             .Where(t => typeof(IBookPassengerValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();

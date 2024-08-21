@@ -1,13 +1,11 @@
 ﻿using FastEndpoints;
-using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
-using IMapper = AutoMapper.IMapper;
 
 namespace Training.FlightBooking.API.Endpoints.Bookings;
 
-public class BookFlight(IBookPassengerService service, IMapper mapper) : Endpoint<CreateBookingRequest, Result<Guid>>
+public class BookFlight(IBookPassengerService service) : Endpoint<CreateBookingRequest, Result<Guid>>
 {
     private const string Route = "api/Bookings/Create";
 

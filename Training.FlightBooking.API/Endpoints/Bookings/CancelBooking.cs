@@ -1,6 +1,5 @@
 ﻿using FastEndpoints;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
-using Training.FlightBooking.Core.BookingAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.API.Endpoints.Bookings;
