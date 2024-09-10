@@ -15,27 +15,57 @@ public class AutofacCoreModule : Module
 {
     protected override void Load(ContainerBuilder builder)
     {
-        builder.RegisterType<CreateAirplaneService>().As<ICreateAirplaneService>().InstancePerLifetimeScope();
-        builder.RegisterType<UpdateAirplaneCapacityService>().As<IUpdateAirplaneCapacityService>()
+        builder.RegisterType<CreateAirplaneService>()
+            .As<ICreateAirplaneService>()
             .InstancePerLifetimeScope();
-        builder.RegisterType<UpdateAirplaneService>().As<IUpdateAirplaneService>()
+        builder.RegisterType<ListAirplanesService>()
+            .As<IListAirplanesService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<GetAirplaneService>()
+            .As<IGetAirplaneService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<UpdateAirplaneCapacityService>()
+            .As<IUpdateAirplaneCapacityService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<UpdateAirplaneService>()
+            .As<IUpdateAirplaneService>()
             .InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(ICreateAirplaneValidationRule).Assembly)
             .Where(t => typeof(ICreateAirplaneValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();
-        
-        builder.RegisterType<BookPassengerService>().As<IBookPassengerService>().InstancePerLifetimeScope();
-        builder.RegisterType<ListBookingsService>().As<IListBookingsService>().InstancePerLifetimeScope();
+
+        builder.RegisterType<BookPassengerService>()
+            .As<IBookPassengerService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<GetBookingService>()
+            .As<IGetBookingService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<ListBookingsService>()
+            .As<IListBookingsService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<CancelBookingService>()
+            .As<ICancelBookingService>()
+            .InstancePerLifetimeScope();
         builder.RegisterAssemblyTypes(typeof(IBookPassengerValidationRule).Assembly)
             .Where(t => typeof(IBookPassengerValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();
 
-        builder.RegisterType<DeletePassengerBookService>().As<IDeletePassengerBookService>().InstancePerLifetimeScope();
-
-        builder.RegisterType<UpdateFlightAvailabilityService>().As<IUpdateFlightAvailabilityService>()
+        builder.RegisterType<DeletePassengerBookService>()
+            .As<IDeletePassengerBookService>()
             .InstancePerLifetimeScope();
-        builder.RegisterType<UpdateFlightStatusService>().As<IUpdateFlightStatusService>().InstancePerLifetimeScope();
-        builder.RegisterType<CreateFlightService>().As<ICreateFlightService>().InstancePerLifetimeScope();
+
+        builder.RegisterType<UpdateFlightAvailabilityService>()
+            .As<IUpdateFlightAvailabilityService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<UpdateFlightStatusService>()
+            .As<IUpdateFlightStatusService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<CreateFlightService>()
+            .As<ICreateFlightService>()
+            .InstancePerLifetimeScope();
+        builder.RegisterType<ListFlightsService>()
+            .As<IListFlightsService>()
+            .InstancePerLifetimeScope();
 
         builder.RegisterAssemblyTypes(typeof(ICreateFlightValidationRule).Assembly)
             .Where(t => typeof(ICreateFlightValidationRule).IsAssignableFrom(t) && !t.IsAbstract)

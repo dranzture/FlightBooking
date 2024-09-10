@@ -5,7 +5,7 @@ using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.API.Endpoints.Bookings;
 
-public class ListBookings(IListBookingsService service, IMapper mapper)
+public class ListBookings(IListBookingsService service)
     : EndpointWithoutRequest<Result<IEnumerable<BookingDto>>>
 {
     private const string Route = "api/Bookings/List";
