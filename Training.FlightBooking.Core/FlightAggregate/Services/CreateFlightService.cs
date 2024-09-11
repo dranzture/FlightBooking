@@ -2,6 +2,7 @@
 using AutoMapper;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 

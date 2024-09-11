@@ -1,8 +1,7 @@
-﻿using Training.FlightBooking.Core.DTOs;
-using Training.FlightBooking.Core.FlightAggregate.Requests;
+﻿using Training.FlightBooking.Core.FlightAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 
-namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
+namespace Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 
 public interface ICreateFlightService
 {

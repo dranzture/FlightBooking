@@ -7,6 +7,7 @@ using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Services;
 using Training.FlightBooking.Core.FlightAggregate.Handlers;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.FlightAggregate.Services;
 
 namespace Training.FlightBooking.Core;

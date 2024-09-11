@@ -75,3 +75,7 @@ app.AddInitialSetups();
 app.InitializeData();
 
 app.Run();
+
+//Integration Test Utilizes this partial class.
+//Even though it is a 'hack', many other Microsoft MVP developers suggest this approach.
+public partial class Program{}

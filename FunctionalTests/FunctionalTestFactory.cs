@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
 using Training.IntegrationTest.Infrastructure.Data;
-using Training.IntegrationTest.Infrastructure.Interfaces;
+using Xunit;
 
-namespace CreateBookingServiceTests;
+namespace FunctionalTests;
 
-public class FunctionalTestFactory : WebApplicationFactory<IStartup>, IAsyncLifetime
+public class FunctionalTest : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
