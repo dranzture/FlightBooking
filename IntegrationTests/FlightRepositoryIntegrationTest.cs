@@ -6,13 +6,13 @@ using Xunit;
 
 namespace IntegrationTests;
 
-public class BaseFlightRepositoryTest: IClassFixture<IntegrationTestFactory>
+public class FlightRepositoryIntegrationTest: IClassFixture<IntegrationTestFactory>
 {
     private readonly IServiceScope _scope;
     protected readonly IRepository<Flight> FlightRepository;
     protected readonly IRepository<Airplane> AirplaneRepository;
 
-    protected BaseFlightRepositoryTest(IntegrationTestFactory factory)
+    protected FlightRepositoryIntegrationTest(IntegrationTestFactory factory)
     {
         _scope  = factory.Services.CreateScope();
         FlightRepository = _scope.ServiceProvider.GetRequiredService<IRepository<Flight>>();

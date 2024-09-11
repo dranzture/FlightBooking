@@ -6,7 +6,7 @@ using Xunit;
 
 namespace IntegrationTests;
 
-public class CreateFlightServiceTests(IntegrationTestFactory factory) : BaseFlightRepositoryTest(factory)
+public class CreateFlightServiceTests(IntegrationTestFactory factory) : FlightRepositoryIntegrationTest(factory)
 {
     [Fact]
     public async Task Creates_Flight_When_There_Is_No_Other_Flight()
