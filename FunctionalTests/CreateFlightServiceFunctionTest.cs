@@ -2,20 +2,23 @@
 using Microsoft.Extensions.DependencyInjection;
 using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Xunit;
 
-namespace IntegrationTests;
+namespace FunctionalTests;
 
-public class FlightRepositoryIntegrationTest : IClassFixture<IntegrationTestFactory>
+public class CreateFlightServiceTest : IClassFixture<FunctionalTestFactory>
 {
     private readonly IServiceScope _scope;
-    protected readonly IRepository<Flight> FlightRepository;
+    protected readonly ICreateFlightService CreateFlightService;
     protected readonly IRepository<Airplane> AirplaneRepository;
 
-    protected FlightRepositoryIntegrationTest(IntegrationTestFactory factory)
+    protected CreateFlightServiceTest(FunctionalTestFactory factory)
     {
         _scope  = factory.Services.CreateScope();
-        FlightRepository = _scope.ServiceProvider.GetRequiredService<IRepository<Flight>>();
+        CreateFlightService = _scope.ServiceProvider.GetRequiredService<ICreateFlightService>();
         AirplaneRepository = _scope.ServiceProvider.GetRequiredService<IRepository<Airplane>>();
     }
+
+    
 }

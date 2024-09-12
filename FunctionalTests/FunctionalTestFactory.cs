@@ -9,7 +9,7 @@ using Xunit;
 
 namespace FunctionalTests;
 
-public class FunctionalTest : WebApplicationFactory<Program>, IAsyncLifetime
+public class FunctionalTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
