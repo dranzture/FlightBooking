@@ -4,10 +4,9 @@ using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.PassengerAggregate;
-using Training.FlightBooking.Core.Shared;
-using Training.IntegrationTest.Infrastructure.Interfaces;
+using Training.FlightBooking.Data.Interfaces;
 
-namespace Training.IntegrationTest.Infrastructure.Data;
+namespace Training.FlightBooking.Data.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options,
         IDomainEventDispatcher? dispatcher)
@@ -31,7 +30,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options,
     {
         var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         
-        var entitiesWithEvents = ChangeTracker.Entries<EntityBase<Guid>>()
+        var entitiesWithEvents = ChangeTracker.Entries<FlightBooking.Core.Shared.EntityBase<Guid>>()
             .Select(e => e.Entity)
             .Where(e => e.DomainEvents.Any())
             .ToArray();

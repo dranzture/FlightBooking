@@ -1,9 +1,9 @@
 ﻿using Ardalis.Specification;
 using Training.FlightBooking.Core.FlightAggregate;
 
-namespace Training.FlightBooking.Core.FlightAggregate.Specifications;
+namespace Training.FlightBooking.Data.Repositories.Specifications.Flight;
 
-public sealed class GetFlightsByAirplaneId : Specification<Flight>
+public sealed class GetFlightsByAirplaneId : Specification<Core.FlightAggregate.Flight>
 {
     public GetFlightsByAirplaneId(Guid airplaneId)
     {

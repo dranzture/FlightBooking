@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Training.FlightBooking.Data.Data;
 using Training.IntegrationTest.Infrastructure.Data;
 
 #nullable disable
@@ -12,8 +13,8 @@ using Training.IntegrationTest.Infrastructure.Data;
 namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240212031808_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240214045459_UpdateBookingFlightRelationship")]
+    partial class UpdateBookingFlightRelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +25,33 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Training.FlightBooking.Core.AirplaneAggregate.Airplane", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Manufacturer")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("character varying(30)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Airplanes");
+                });
 
             modelBuilder.Entity("Training.FlightBooking.Core.BookingAggregate.Booking", b =>
                 {
@@ -42,37 +70,11 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightId")
-                        .IsUnique();
+                    b.HasIndex("FlightId");
 
                     b.HasIndex("PassengerId");
 
                     b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("Training.FlightBooking.Core.FlightAggregate.Airplane", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Manufacturer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Airplanes");
                 });
 
             modelBuilder.Entity("Training.FlightBooking.Core.FlightAggregate.Flight", b =>
@@ -113,8 +115,8 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -139,8 +141,8 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
             modelBuilder.Entity("Training.FlightBooking.Core.BookingAggregate.Booking", b =>
                 {
                     b.HasOne("Training.FlightBooking.Core.FlightAggregate.Flight", "Flight")
-                        .WithOne()
-                        .HasForeignKey("Training.FlightBooking.Core.BookingAggregate.Booking", "FlightId")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -157,7 +159,7 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Training.FlightBooking.Core.FlightAggregate.Flight", b =>
                 {
-                    b.HasOne("Training.FlightBooking.Core.FlightAggregate.Airplane", "Airplane")
+                    b.HasOne("Training.FlightBooking.Core.AirplaneAggregate.Airplane", "Airplane")
                         .WithOne()
                         .HasForeignKey("Training.FlightBooking.Core.FlightAggregate.Flight", "AirplaneId")
                         .OnDelete(DeleteBehavior.Cascade)

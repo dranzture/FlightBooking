@@ -1,9 +1,9 @@
-﻿using Ardalis.SharedKernel;
-using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+﻿using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Services;
 
-public class UpdateFlightAvailabilityService(IRepository<Flight> repository) : IUpdateFlightAvailabilityService
+public class UpdateFlightAvailabilityService(IFlightRepository repository) : IUpdateFlightAvailabilityService
 {
     
 

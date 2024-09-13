@@ -1,12 +1,9 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Autofac;
-using MediatR;
-using MediatR.Pipeline;
+
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
-using IDomainEventDispatcher = Training.IntegrationTest.Infrastructure.Interfaces.IDomainEventDispatcher;
-using MediatRDomainEventDispatcher = Training.FlightBooking.Core.Shared.MediatRDomainEventDispatcher;
 using Module = Autofac.Module;
 
 namespace Training.IntegrationTest.Infrastructure;
@@ -35,7 +32,6 @@ public class AutofacInfrastructureModule : Module
     // TODO: Replace these types with any type in the appropriate assembly/project
     var flightAssembly = Assembly.GetAssembly(typeof(Flight));
     var bookingAssembly = Assembly.GetAssembly(typeof(Booking));
-    
     var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
 
     AddToAssembliesIfNotNull(flightAssembly);
@@ -54,17 +50,9 @@ public class AutofacInfrastructureModule : Module
     {
       RegisterProductionOnlyDependencies(builder);
     }
-    RegisterEF(builder);
     DomainEventDispatcher(builder);
   }
 
-  private void RegisterEF(ContainerBuilder builder)
-  {
-    builder.RegisterGeneric(typeof(EfRepository<>))
-      .As(typeof(IRepository<>))
-      .As(typeof(IReadRepository<>))
-      .InstancePerLifetimeScope();
-  }
 
   private void DomainEventDispatcher(ContainerBuilder builder)
   {

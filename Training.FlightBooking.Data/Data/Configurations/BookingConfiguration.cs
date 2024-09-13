@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Training.FlightBooking.Core.BookingAggregate;
-using Training.FlightBooking.Core.PassengerAggregate;
 
-namespace Training.IntegrationTest.Infrastructure.Data.Configurations;
+namespace Training.FlightBooking.Data.Data.Configurations;
 
 public class BookingConfiguration : IEntityTypeConfiguration<Booking>
 {

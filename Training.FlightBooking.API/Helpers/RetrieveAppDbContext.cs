@@ -1,4 +1,5 @@
-﻿using Training.IntegrationTest.Infrastructure.Data;
+﻿using Training.FlightBooking.Data.Data;
+using Training.IntegrationTest.Infrastructure.Data;
 
 namespace Training.FlightBooking.API.Helpers;
 

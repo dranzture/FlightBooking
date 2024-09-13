@@ -4,19 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Training.IntegrationTest.Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
-      <PackageReference Include="Autofac" Version="8.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Training.FlightBooking.Core\Training.FlightBooking.Core.csproj" />
-      <ProjectReference Include="..\Training.FlightBooking.Data\Training.FlightBooking.Data.csproj" />
     </ItemGroup>
 
 </Project>

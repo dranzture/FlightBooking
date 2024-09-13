@@ -1,13 +1,12 @@
-﻿using Ardalis.SharedKernel;
-using AutoMapper;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Services;
 
-public class UpdateFlightStatusService(IRepository<Flight> repository)
+public class UpdateFlightStatusService(IFlightRepository repository)
     : IUpdateFlightStatusService
 {
     public async Task<Result> UpdateFlightStatus(UpdateFlightRequest request, CancellationToken cancellationToken)

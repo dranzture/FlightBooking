@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Training.IntegrationTest.Infrastructure.Interfaces;
-using DomainEventBase = Training.FlightBooking.Core.Shared.DomainEventBase;
+using Training.FlightBooking.Core.Shared;
+using Training.FlightBooking.Data.Interfaces;
 
-namespace Training.FlightBooking.Core.Shared;
+namespace Training.FlightBooking.Infrastructure.Services;
 
 public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 {
@@ -23,7 +23,7 @@ public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 
             foreach (var domainEvent in eventsToDispatch)
             {
-                await _mediator.Publish<DomainEventBase>(domainEvent).ConfigureAwait(false);
+                await _mediator.Publish(domainEvent).ConfigureAwait(false);
                 // Track successful dispatch.
                 _dispatchedEvents.Add(domainEvent.EventId); 
             }

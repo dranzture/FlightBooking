@@ -1,6 +1,6 @@
 ﻿using Training.FlightBooking.Core.Shared;
 
-namespace Training.IntegrationTest.Infrastructure.Interfaces;
+namespace Training.FlightBooking.Data.Interfaces;
 
 public interface IDomainEventDispatcher
 {

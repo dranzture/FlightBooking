@@ -13,10 +13,10 @@ public class Result
         Errors = errors;
     }
 
-    public static Result Success() => new Result(true, null);
+    public static Result Success() => new(true, null);
 
-    public static Result Failure(List<ValidationFailure>? errors) => new Result(false, errors);
-    public static Result Failure(ValidationFailure error) => new Result(false, new List<ValidationFailure>() { error });
+    public static Result Failure(List<ValidationFailure>? errors) => new(false, errors);
+    public static Result Failure(ValidationFailure error) => new(false, new List<ValidationFailure>() { error });
 }
 
 public class Result<T> : Result
@@ -28,7 +28,7 @@ public class Result<T> : Result
 
     public static Result<T> Success(T value) => new(true, null);
 
-    public static Result<T> Failure(List<ValidationFailure> errors) => new(false, errors);
+    public new static Result<T> Failure(List<ValidationFailure> errors) => new(false, errors);
 
-    public static Result<T> Failure(ValidationFailure error) => new(false, new List<ValidationFailure> { error });
+    public new static Result<T> Failure(ValidationFailure error) => new(false, new List<ValidationFailure> { error });
 }

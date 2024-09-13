@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using Training.FlightBooking.API.Helpers;
 using Training.FlightBooking.Core;
+using Training.FlightBooking.Data;
+using Training.FlightBooking.Data.Data;
 using Training.IntegrationTest.Infrastructure;
 using Training.IntegrationTest.Infrastructure.Data;
 
@@ -21,6 +23,7 @@ builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
 {
     containerBuilder.RegisterModule(new AutofacCoreModule());
     containerBuilder.RegisterModule(new AutofacInfrastructureModule(builder.Environment.IsDevelopment()));
+    containerBuilder.RegisterModule(new AutofacDataModule(builder.Environment.IsDevelopment()));
 });
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

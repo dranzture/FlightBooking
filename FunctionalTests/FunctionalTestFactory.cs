@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Testcontainers.PostgreSql;
-using Training.IntegrationTest.Infrastructure.Data;
+using Training.FlightBooking.Data.Data;
 using Xunit;
 
 namespace FunctionalTests;

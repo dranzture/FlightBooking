@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Training.FlightBooking.Data.Data;
 using Training.IntegrationTest.Infrastructure.Data;
 
 #nullable disable
@@ -12,8 +13,8 @@ using Training.IntegrationTest.Infrastructure.Data;
 namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240219022806_AddColumnSeatsToBookings")]
-    partial class AddColumnSeatsToBookings
+    [Migration("20240219041949_ChangeColumnNameSeatsFlights")]
+    partial class ChangeColumnNameSeatsFlights
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,14 +92,14 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
                     b.Property<DateTime>("Arrival")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("AvailableSeats")
-                        .HasColumnType("integer");
-
                     b.Property<int>("BookedSeats")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("Departure")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Seats")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");

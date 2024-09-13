@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Training.FlightBooking.Data.Data;
 using Training.IntegrationTest.Infrastructure.Data;
 
 #nullable disable
@@ -12,8 +13,8 @@ using Training.IntegrationTest.Infrastructure.Data;
 namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240214034810_UpdatePassengerDateOnlyDateOfBirth")]
-    partial class UpdatePassengerDateOnlyDateOfBirth
+    [Migration("20240219022806_AddColumnSeatsToBookings")]
+    partial class AddColumnSeatsToBookings
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,13 +65,15 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
                     b.Property<Guid>("PassengerId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("Seats")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightId")
-                        .IsUnique();
+                    b.HasIndex("FlightId");
 
                     b.HasIndex("PassengerId");
 
@@ -141,13 +144,13 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
             modelBuilder.Entity("Training.FlightBooking.Core.BookingAggregate.Booking", b =>
                 {
                     b.HasOne("Training.FlightBooking.Core.FlightAggregate.Flight", "Flight")
-                        .WithOne()
-                        .HasForeignKey("Training.FlightBooking.Core.BookingAggregate.Booking", "FlightId")
+                        .WithMany()
+                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Training.FlightBooking.Core.PassengerAggregate.Passenger", "Passenger")
-                        .WithMany("Booking")
+                        .WithMany("Bookings")
                         .HasForeignKey("PassengerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -214,7 +217,7 @@ namespace Training.IntegrationTest.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Training.FlightBooking.Core.PassengerAggregate.Passenger", b =>
                 {
-                    b.Navigation("Booking");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

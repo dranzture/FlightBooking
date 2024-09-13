@@ -1,14 +1,14 @@
-﻿using Ardalis.SharedKernel;
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.FlightAggregate.Services;
 
-public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICreateFlightValidationRule> rules, IMapper mapper) : ICreateFlightService
+public class CreateFlightService(IFlightRepository repository, IEnumerable<ICreateFlightValidationRule> rules, IMapper mapper) : ICreateFlightService
 {
     public async Task<Result<Guid>> CreateFlight(CreateFlightRequest request, CancellationToken cancellationToken)
     {
@@ -30,8 +30,6 @@ public class CreateFlightService(IRepository<Flight> repository, IEnumerable<ICr
         }
         
         await repository.AddAsync(flight, cancellationToken);
-        await repository.SaveChangesAsync(cancellationToken);
-        
         
         return Result<Guid>.Success(flight.Id);
     }
