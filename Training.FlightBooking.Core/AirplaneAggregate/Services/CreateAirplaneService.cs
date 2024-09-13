@@ -2,13 +2,14 @@
 using AutoMapper;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.AirplaneAggregate.Requests;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
 public class CreateAirplaneService(
-    IRepository<Airplane> airplaneRepository,
+    IAirplaneRepository repository,
     IEnumerable<ICreateAirplaneValidationRule> rules,
     IMapper mapper) : ICreateAirplaneService
 {
@@ -33,7 +34,7 @@ public class CreateAirplaneService(
             return Result<Guid>.Failure(validationFailures);
         }
 
-        await airplaneRepository.AddAsync(airplane, cancellationToken);
+        await repository.AddAsync(airplane, cancellationToken);
         return Result<Guid>.Success(airplane.Id);
     }
 }

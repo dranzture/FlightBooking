@@ -2,12 +2,13 @@
 using AutoMapper;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
-public class GetAirplaneService(IRepository<Airplane> repository, IMapper mapper) : IGetAirplaneService
+public class GetAirplaneService(IAirplaneRepository repository, IMapper mapper) : IGetAirplaneService
 {
     public async Task<Result<AirplaneDto>> GetAirplaneAsync(Guid id, CancellationToken cancellationToken)
     {
