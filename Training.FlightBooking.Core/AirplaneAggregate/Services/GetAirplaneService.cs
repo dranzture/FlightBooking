@@ -14,7 +14,7 @@ public class GetAirplaneService(IAirplaneRepository repository, IMapper mapper) 
     {
         var airplane = await repository.GetByIdAsync(id, cancellationToken);
         return airplane is null
-            ? Result<AirplaneDto>.Failure(new List<ValidationFailure>(){new(nameof(Airplane), "Airplane not found")})
+            ? Result<AirplaneDto>.Failure([new ValidationFailure(nameof(Airplane), "Airplane not found")])
             : Result<AirplaneDto>.Success(mapper.Map<AirplaneDto>(airplane));
     }
 }

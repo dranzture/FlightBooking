@@ -1,8 +1,8 @@
 ﻿using Ardalis.Specification;
 
-namespace Training.FlightBooking.Core.BookingAggregate.Specifications;
+namespace Training.FlightBooking.Data.Repositories.Specifications.Booking;
 
-public sealed class FindByFlightIdAndPassengerId : Specification<Booking>
+public sealed class FindByFlightIdAndPassengerId : Specification<Core.BookingAggregate.Booking>
 {
     public FindByFlightIdAndPassengerId(Guid flightId, Guid passengerId)
     {

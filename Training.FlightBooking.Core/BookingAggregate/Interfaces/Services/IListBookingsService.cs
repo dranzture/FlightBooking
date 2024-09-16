@@ -1,7 +1,7 @@
 ﻿using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.Shared;
 
-namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
+namespace Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
 
 public interface IListBookingsService
 {

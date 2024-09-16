@@ -12,6 +12,11 @@ public class Booking : Shared.EntityBase<Guid>, IAggregateRoot
     {
     }
 
+    public Booking(Guid id)
+    {
+        Id = id;
+    }
+    
     /// <summary>
     /// Initializes a new instance of the Booking class with the specified flight.
     /// </summary>
@@ -45,7 +50,7 @@ public class Booking : Shared.EntityBase<Guid>, IAggregateRoot
         Status = BookingStatus.Canceled;
         RegisterDomainEvent(new PassengerCanceledFlight(FlightId, PassengerId, Seats));
     }
-    
+
     
     public void AddPassenger(Guid passengerId)
     {

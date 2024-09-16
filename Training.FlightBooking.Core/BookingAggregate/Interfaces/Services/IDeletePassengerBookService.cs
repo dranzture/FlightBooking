@@ -1,8 +1,8 @@
-﻿using Training.FlightBooking.Core.PassengerAggregate;
+﻿using Training.FlightBooking.Core.Shared;
 
-namespace Training.FlightBooking.Core.BookingAggregate.Interfaces;
+namespace Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
 
 public interface IDeletePassengerBookService
 {
-    public Task DeletePassengerBooking(Guid bookingId,CancellationToken token);
+    public Task<Result> DeletePassengerBooking(Guid bookingId,CancellationToken token);
 }

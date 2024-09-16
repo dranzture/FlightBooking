@@ -1,12 +1,15 @@
 ﻿using Ardalis.SharedKernel;
 using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Services;
 
 public class BookPassengerService(
-    IRepository<Booking> bookingRepository,
+    IBookingRepository bookingRepository,
     IEnumerable<IBookPassengerValidationRule> rules) : IBookPassengerService
 {
     public async Task<Result<Guid>> BookPassenger(Guid flightId, Guid passengerId, int seats, CancellationToken token)

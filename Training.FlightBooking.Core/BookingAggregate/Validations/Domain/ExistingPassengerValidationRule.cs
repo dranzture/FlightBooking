@@ -1,18 +1,17 @@
-﻿using Ardalis.SharedKernel;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
-using Training.FlightBooking.Core.BookingAggregate.Specifications;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Validations.Domain;
 
-public class ExistingPassengerValidationRule(IRepository<Booking> repository) : IBookPassengerValidationRule
+public class ExistingPassengerValidationRule(IBookingRepository repository) : IBookPassengerValidationRule
 {
     public async Task<ValidationFailure?> ValidateAsync(Booking booking, CancellationToken token)
     {
-        var passengerNoTrack = new FindByFlightIdAndPassengerId(booking.FlightId, booking.PassengerId);
-        var passenger = await repository.FirstOrDefaultAsync(passengerNoTrack, token);
+        var passenger = await repository.GetByFlightIdAndPassengerId(booking, token);
         return passenger is not null
-            ? new ValidationFailure(nameof(Booking), "Passenger has already booked flight")
+            ? new ValidationFailure(nameof(Booking), "Passenger has already booked this flight.")
             : null;
     }
 }

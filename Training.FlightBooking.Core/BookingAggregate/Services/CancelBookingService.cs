@@ -1,21 +1,31 @@
-﻿using Ardalis.SharedKernel;
-using FluentValidation.Results;
-using Training.FlightBooking.Core.BookingAggregate.Interfaces;
-using Training.FlightBooking.Core.BookingAggregate.Requests;
+﻿using FluentValidation.Results;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Services;
 
-public class CancelBookingService(IRepository<Booking> repository) : ICancelBookingService
+public class CancelBookingService(IBookingRepository repository, IEnumerable<ICancelBookingValidationRule> rules) : ICancelBookingService
 {
 
     public async Task<Result> CancelBookingStatus(Guid id, CancellationToken cancellationToken)
     {
-        var booking = await repository.GetByIdAsync(id, cancellationToken);
-        if (booking is null)
+        var booking = new Booking(id);
+        var validationFailures = new List<ValidationFailure>();
+        
+        foreach (var rule in rules)
         {
-            return Result.Failure(
-                new List<ValidationFailure>() { new (nameof(Booking), "Booking not found") });
+            var validationFailure = await rule.ValidateAsync(booking, cancellationToken);
+            if (validationFailure is not null)
+            {
+                validationFailures.Add(validationFailure);
+            }
+        }
+        
+        if (validationFailures.Count > 0)
+        {
+            return Result<Guid>.Failure(validationFailures);
         }
             
         

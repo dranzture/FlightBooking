@@ -5,6 +5,8 @@ using Training.FlightBooking.Core.AirplaneAggregate.Services;
 using Training.FlightBooking.Core.BookingAggregate.Events;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.BookingAggregate.Services;
 using Training.FlightBooking.Core.FlightAggregate.Handlers;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;

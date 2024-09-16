@@ -2,8 +2,15 @@
 
 public interface IBookingRepository
 {
-    Task AddAsync(Booking booking, CancellationToken cancellationToken);
+    Task<Booking> AddAsync(Booking booking, CancellationToken cancellationToken);
     
     Task UpdateAsync(Booking booking, CancellationToken cancellationToken);
+    
+    Task DeleteAsync(Booking booking, CancellationToken cancellationToken);
 
+    Task<List<Booking>> ListAsync(CancellationToken cancellationToken);
+    
+    Task<Booking?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    
+    Task<Booking?> GetByFlightIdAndPassengerId(Booking booking, CancellationToken cancellationToken);
 }

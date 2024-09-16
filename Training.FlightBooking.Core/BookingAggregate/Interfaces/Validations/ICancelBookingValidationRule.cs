@@ -2,7 +2,7 @@
 
 namespace Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 
-public interface IBookPassengerValidationRule
+public interface ICancelBookingValidationRule
 {
     Task<ValidationFailure?> ValidateAsync(Booking booking, CancellationToken token);
 }
