@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using Training.FlightBooking.Core.AirplaneAggregate.Requests;
 
 namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Validations;
 

@@ -10,7 +10,7 @@ namespace Training.FlightBooking.Core.BookingAggregate.Services;
 
 public class DeletePassengerBookService(
     IBookingRepository repository,
-    IEnumerable<IDeletePassengerValidationRule> rules) : IDeletePassengerBookService
+    IEnumerable<IDeletePassengerBookingValidationRule> rules) : IDeletePassengerBookService
 {
     public async Task<Result> DeletePassengerBooking(Guid id, CancellationToken cancellationToken)
     {

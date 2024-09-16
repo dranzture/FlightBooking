@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
+namespace Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Validations;
 
 public interface IUpdateAirplaneCapacityValidationRule
 {

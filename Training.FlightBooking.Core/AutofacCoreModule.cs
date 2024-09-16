@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using MediatR;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.AirplaneAggregate.Services;
 using Training.FlightBooking.Core.BookingAggregate.Events;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
@@ -10,6 +11,7 @@ using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.BookingAggregate.Services;
 using Training.FlightBooking.Core.FlightAggregate.Handlers;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.FlightAggregate.Services;
 
 namespace Training.FlightBooking.Core;
@@ -36,7 +38,14 @@ public class AutofacCoreModule : Module
         builder.RegisterAssemblyTypes(typeof(ICreateAirplaneValidationRule).Assembly)
             .Where(t => typeof(ICreateAirplaneValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();
-
+        builder.RegisterAssemblyTypes(typeof(IUpdateAirplaneValidationRule).Assembly)
+            .Where(t => typeof(IUpdateAirplaneValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        builder.RegisterAssemblyTypes(typeof(IUpdateAirplaneCapacityValidationRule).Assembly)
+            .Where(t => typeof(IUpdateAirplaneCapacityValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        
+        
         builder.RegisterType<BookPassengerService>()
             .As<IBookPassengerService>()
             .InstancePerLifetimeScope();
@@ -49,13 +58,19 @@ public class AutofacCoreModule : Module
         builder.RegisterType<CancelBookingService>()
             .As<ICancelBookingService>()
             .InstancePerLifetimeScope();
-        builder.RegisterAssemblyTypes(typeof(IBookPassengerValidationRule).Assembly)
-            .Where(t => typeof(IBookPassengerValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
-            .AsImplementedInterfaces();
-
         builder.RegisterType<DeletePassengerBookService>()
             .As<IDeletePassengerBookService>()
             .InstancePerLifetimeScope();
+        builder.RegisterAssemblyTypes(typeof(IBookPassengerValidationRule).Assembly)
+            .Where(t => typeof(IBookPassengerValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        builder.RegisterAssemblyTypes(typeof(ICancelBookingValidationRule).Assembly)
+            .Where(t => typeof(ICancelBookingValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        builder.RegisterAssemblyTypes(typeof(IDeletePassengerBookingValidationRule).Assembly)
+            .Where(t => typeof(IDeletePassengerBookingValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        
 
         builder.RegisterType<UpdateFlightAvailabilityService>()
             .As<IUpdateFlightAvailabilityService>()
@@ -69,11 +84,13 @@ public class AutofacCoreModule : Module
         builder.RegisterType<ListFlightsService>()
             .As<IListFlightsService>()
             .InstancePerLifetimeScope();
-
         builder.RegisterAssemblyTypes(typeof(ICreateFlightValidationRule).Assembly)
             .Where(t => typeof(ICreateFlightValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();
-
+        builder.RegisterAssemblyTypes(typeof(IUpdateFlightValidationRule).Assembly)
+            .Where(t => typeof(IUpdateFlightValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
+            .AsImplementedInterfaces();
+        
         AddMediatRHandlers(builder);
     }
 

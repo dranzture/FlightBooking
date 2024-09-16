@@ -7,10 +7,10 @@ using Training.FlightBooking.Core.FlightAggregate;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Validations.Domain;
 
-public class ExistingFlightValidationRule(IBookingRepository repository) : 
+public class ExistingFlightBookingValidationRule(IBookingRepository repository) : 
     IBookPassengerValidationRule,
     ICancelBookingValidationRule, 
-    IDeletePassengerValidationRule
+    IDeletePassengerBookingValidationRule
 {
     public async Task<ValidationFailure?> ValidateAsync(Booking booking, CancellationToken token)
     {
