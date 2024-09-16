@@ -20,6 +20,7 @@ public class CancelBookingService(IRepository<Booking> repository) : ICancelBook
             
         
         booking.CancelBooking();
+        await repository.UpdateAsync(booking, cancellationToken);
         return Result.Success();
     }
 }
