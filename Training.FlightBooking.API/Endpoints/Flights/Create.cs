@@ -8,7 +8,7 @@ using IMapper = AutoMapper.IMapper;
 
 namespace Training.FlightBooking.API.Endpoints.Flights;
 
-public class Create(ICreateFlightService createFlightService, IMapper mapper) : Endpoint<CreateFlightRequest>
+public class Create(ICreateFlightService createFlightService) : Endpoint<CreateFlightRequest>
 {
     private const string Route = "api/Flight/Create";
 

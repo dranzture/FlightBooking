@@ -7,7 +7,7 @@ namespace Training.FlightBooking.Data.Repositories;
 
 public class AirplaneRepository(IRepository<Airplane> repository) : IAirplaneRepository
 {
-    public Task AddAsync(Airplane airplane, CancellationToken cancellationToken)
+    public Task<Airplane> AddAsync(Airplane airplane, CancellationToken cancellationToken)
     {
         return repository.AddAsync(airplane, cancellationToken);
     }

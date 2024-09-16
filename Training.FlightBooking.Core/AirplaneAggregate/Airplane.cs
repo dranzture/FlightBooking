@@ -5,6 +5,7 @@ namespace Training.FlightBooking.Core.AirplaneAggregate;
 
 public class Airplane : Shared.EntityBase<Guid>, IAggregateRoot
 {
+    //EF and AutoMapper requires
     public Airplane(){}
     /// <summary>
     /// Initializes a new instance of the Airplane class.

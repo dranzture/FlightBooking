@@ -2,13 +2,13 @@
 
 public interface IAirplaneRepository
 {
-    Task AddAsync(Airplane airplane, CancellationToken cancellationToken);
+    Task<Airplane> AddAsync(Airplane airplane, CancellationToken cancellationToken = default);
     
-    Task UpdateAsync(Airplane airplane, CancellationToken cancellationToken);
+    Task UpdateAsync(Airplane airplane, CancellationToken cancellationToken = default);
     
-    Task<Airplane?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<Airplane?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     
-    Task<Airplane?> FindByModelManufacturerAndYear(string model, string manufacturer, int year, CancellationToken cancellationToken);
+    Task<Airplane?> FindByModelManufacturerAndYear(string model, string manufacturer, int year, CancellationToken cancellationToken = default);
     
-    Task<List<Airplane>> ListAsync(CancellationToken cancellationToken);
+    Task<List<Airplane>> ListAsync(CancellationToken cancellationToken = default);
 }

@@ -1,12 +1,11 @@
 ﻿using System.Reflection;
-using Ardalis.SharedKernel;
 using Autofac;
-
-using Training.FlightBooking.Core.BookingAggregate;
-using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Infrastructure.Interfaces;
+using Training.FlightBooking.Infrastructure.Services;
 using Module = Autofac.Module;
 
-namespace Training.IntegrationTest.Infrastructure;
+// ReSharper disable once CheckNamespace
+namespace Training.FlightBooking.Infrastructure;
 
 public class AutofacInfrastructureModule : Module
 {
@@ -29,14 +28,7 @@ public class AutofacInfrastructureModule : Module
 
   private void LoadAssemblies()
   {
-    // TODO: Replace these types with any type in the appropriate assembly/project
-    var flightAssembly = Assembly.GetAssembly(typeof(Flight));
-    var bookingAssembly = Assembly.GetAssembly(typeof(Booking));
-    var infrastructureAssembly = Assembly.GetAssembly(typeof(AutofacInfrastructureModule));
 
-    AddToAssembliesIfNotNull(flightAssembly);
-    AddToAssembliesIfNotNull(bookingAssembly);
-    AddToAssembliesIfNotNull(infrastructureAssembly);
   }
 
   protected override void Load(ContainerBuilder builder)
@@ -57,7 +49,7 @@ public class AutofacInfrastructureModule : Module
   private void DomainEventDispatcher(ContainerBuilder builder)
   {
     builder
-      .RegisterType<MediatRDomainEventDispatcher>()
+      .RegisterType<DomainEventDispatcher>()
       .As<IDomainEventDispatcher>()
       .InstancePerLifetimeScope();
   }

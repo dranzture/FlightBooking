@@ -1,18 +1,15 @@
 ﻿using MediatR;
 using Training.FlightBooking.Core.Shared;
-using Training.FlightBooking.Data.Interfaces;
+using Training.FlightBooking.Infrastructure.Interfaces;
 
+// ReSharper disable once CheckNamespace
 namespace Training.FlightBooking.Infrastructure.Services;
 
-public class MediatRDomainEventDispatcher : IDomainEventDispatcher
+public class DomainEventDispatcher(IMediator mediator) : IDomainEventDispatcher
 {
-    private readonly IMediator _mediator;
-    
     private readonly HashSet<Guid> _dispatchedEvents = new();
 
 
-    public MediatRDomainEventDispatcher(IMediator mediator) => _mediator = mediator;
-    
     public async Task DispatchAndClearEvents(IEnumerable<EntityBase<Guid>> entitiesWithEvents)
     {
         foreach (var entityWithEvents in entitiesWithEvents)
@@ -23,7 +20,7 @@ public class MediatRDomainEventDispatcher : IDomainEventDispatcher
 
             foreach (var domainEvent in eventsToDispatch)
             {
-                await _mediator.Publish(domainEvent).ConfigureAwait(false);
+                await mediator.Publish(domainEvent).ConfigureAwait(false);
                 // Track successful dispatch.
                 _dispatchedEvents.Add(domainEvent.EventId); 
             }

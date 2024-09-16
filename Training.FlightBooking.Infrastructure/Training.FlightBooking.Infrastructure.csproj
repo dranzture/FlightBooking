@@ -16,7 +16,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Training.FlightBooking.Core\Training.FlightBooking.Core.csproj" />
-      <ProjectReference Include="..\Training.FlightBooking.Data\Training.FlightBooking.Data.csproj" />
     </ItemGroup>
 
 </Project>

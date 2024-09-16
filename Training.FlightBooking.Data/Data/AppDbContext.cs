@@ -4,7 +4,7 @@ using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.PassengerAggregate;
-using Training.FlightBooking.Data.Interfaces;
+using Training.FlightBooking.Infrastructure.Interfaces;
 
 namespace Training.FlightBooking.Data.Data;
 

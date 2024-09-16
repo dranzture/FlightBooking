@@ -1,8 +1,7 @@
 using FluentAssertions;
-using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.ValueObjects;
 
-namespace FlightsTest;
+namespace DomainTests.FlightTests;
 
 public class FlightsTest
 {
@@ -10,7 +9,7 @@ public class FlightsTest
     public void UpdateArrivalDateTime_ShouldSucceed_WhenArrivalTimeIsAfterDepartureTime()
     {
         // Arrange
-        var flight = new Flight(Guid.NewGuid(),
+        var flight = new Training.FlightBooking.Core.FlightAggregate.Flight(Guid.NewGuid(),
             10,
             DateTime.Now.AddDays(3),
             DateTime.Now,
@@ -28,7 +27,7 @@ public class FlightsTest
     public void UpdateArrivalDateTime_ShouldNotSucceed_WhenArrivalTimeIsBeforeDepartureTime()
     {
         // Arrange
-        var flight = new Flight(Guid.NewGuid(),
+        var flight = new Training.FlightBooking.Core.FlightAggregate.Flight(Guid.NewGuid(),
             10,
             DateTime.Now.AddDays(3),
             DateTime.Now,

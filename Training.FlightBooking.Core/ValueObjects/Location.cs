@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Training.FlightBooking.Core.ValueObjects;
 
@@ -11,6 +12,6 @@ public class Location
         City = city;
     }
     public Location(){}
-    public string? State { get; init; }
-    public string? City { get; init; }
+    public string State { get; private set; }
+    public string City { get; private set; }
 }

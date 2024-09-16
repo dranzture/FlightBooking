@@ -1,23 +1,52 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using MediatR;
+using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.AirplaneAggregate.Services;
+using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Events;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.BookingAggregate.Services;
+using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Handlers;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Validations;
 using Training.FlightBooking.Core.FlightAggregate.Services;
+using Module = Autofac.Module;
 
 namespace Training.FlightBooking.Core;
 
 public class AutofacCoreModule : Module
-{
+{    
+    private readonly List<Assembly> _assemblies = new List<Assembly>();
+
+    private void AddToAssembliesIfNotNull(Assembly? assembly)
+    {
+        if (assembly != null)
+        {
+            _assemblies.Add(assembly);
+        }
+    }
+    
+    private void LoadAssemblies()
+    {
+        
+        var flightAssembly = Assembly.GetAssembly(typeof(Flight));
+        var airplaneAssembly = Assembly.GetAssembly(typeof(Airplane));
+        var bookingAssembly = Assembly.GetAssembly(typeof(Booking));
+        var coreAssembly = Assembly.GetAssembly(typeof(AutofacCoreModule));
+
+        AddToAssembliesIfNotNull(flightAssembly);
+        AddToAssembliesIfNotNull(airplaneAssembly);
+        AddToAssembliesIfNotNull(bookingAssembly);
+        AddToAssembliesIfNotNull(coreAssembly);
+    }
+    
     protected override void Load(ContainerBuilder builder)
     {
         builder.RegisterType<CreateAirplaneService>()

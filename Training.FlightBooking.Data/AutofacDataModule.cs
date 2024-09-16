@@ -1,8 +1,12 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using Autofac;
+using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.BookingAggregate;
+using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.FlightAggregate;
+using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
+using Training.FlightBooking.Data.Repositories;
 using Module = Autofac.Module;
 
 namespace Training.FlightBooking.Data;
@@ -17,7 +21,7 @@ public class AutofacDataModule : Module
         _isDevelopment = isDevelopment;
         AddToAssembliesIfNotNull(callingAssembly);
     }
-    
+
     protected override void Load(ContainerBuilder builder)
     {
         LoadAssemblies();
@@ -29,28 +33,28 @@ public class AutofacDataModule : Module
         {
             RegisterProductionOnlyDependencies(builder);
         }
+
         RegisterEF(builder);
+        RegisterRepositories(builder);
     }
-    
+
     private void AddToAssembliesIfNotNull(Assembly? assembly)
     {
-        if(assembly != null)
+        if (assembly != null)
         {
             _assemblies.Add(assembly);
         }
     }
+
     private void LoadAssemblies()
     {
-        var flightAssembly = Assembly.GetAssembly(typeof(Flight));
-        var bookingAssembly = Assembly.GetAssembly(typeof(Booking));
+        
         var dataAssembly = Assembly.GetAssembly(typeof(AutofacDataModule));
 
-        AddToAssembliesIfNotNull(flightAssembly);
-        AddToAssembliesIfNotNull(bookingAssembly);
         AddToAssembliesIfNotNull(dataAssembly);
     }
-    
-    
+
+
     private void RegisterEF(ContainerBuilder builder)
     {
         builder.RegisterGeneric(typeof(EfRepository<>))
@@ -59,18 +63,22 @@ public class AutofacDataModule : Module
             .InstancePerLifetimeScope();
     }
 
-    
+    private void RegisterRepositories(ContainerBuilder builder)
+    {
+        builder.RegisterType<FlightRepository>().As<IFlightRepository>();
+        builder.RegisterType<AirplaneRepository>().As<IAirplaneRepository>();
+        builder.RegisterType<BookingRepository>().As<IBookingRepository>();
+    }
+
     private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
     {
         // NOTE: Add any development only services here
         //builder.RegisterType<FakeEmailSender>().As<IEmailSender>()
         //  .InstancePerLifetimeScope();
-    
     }
 
     private void RegisterProductionOnlyDependencies(ContainerBuilder builder)
     {
         // NOTE: Add any production only (real) services here
-
     }
 }

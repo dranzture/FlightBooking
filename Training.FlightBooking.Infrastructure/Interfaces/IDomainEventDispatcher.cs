@@ -1,6 +1,7 @@
 ﻿using Training.FlightBooking.Core.Shared;
 
-namespace Training.FlightBooking.Data.Interfaces;
+// ReSharper disable once CheckNamespace
+namespace Training.FlightBooking.Infrastructure.Interfaces;
 
 public interface IDomainEventDispatcher
 {

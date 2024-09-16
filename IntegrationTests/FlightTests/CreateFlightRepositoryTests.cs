@@ -5,7 +5,7 @@ using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.ValueObjects;
 using Xunit;
 
-namespace IntegrationTests;
+namespace IntegrationTests.FlightTests;
 
 public class CreateFlightRepositoryTests(IntegrationTestFactory factory) : FlightRepositoryIntegrationTest(factory)
 {
