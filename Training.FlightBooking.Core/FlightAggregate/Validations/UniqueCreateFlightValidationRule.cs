@@ -10,8 +10,15 @@ public class UniqueCreateFlightValidationRule(IFlightRepository repository) : IC
     {
         var existingFlight = await repository.ListByAirplaneIdAsync(flight.AirplaneId, token);
 
-        return existingFlight.Any(e => e.From == flight.From && e.Departure.Date == flight.Departure.Date)
-            ? new ValidationFailure(nameof(Flight), "Flight already exists")
+        var result = existingFlight.Any(e =>
+            e.From.City == flight.From.City && 
+            e.From.State == flight.From.State &&
+            e.To.City == flight.To.City && 
+            e.To.State == flight.To.State &&
+            e.Departure.Date == flight.Departure.Date);
+
+        return result
+            ? new ValidationFailure(nameof(Flight), "Flight already exists.")
             : null;
     }
 }

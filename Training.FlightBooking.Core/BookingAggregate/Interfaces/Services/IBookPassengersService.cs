@@ -3,7 +3,7 @@ using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.Core.BookingAggregate.Interfaces.Services;
 
-public interface ICancelBookingService
+public interface IBookPassengersService
 {
-    Task<Result> CancelBookingStatus(CancelBookingRequest request, CancellationToken cancellationToken);
+    Task<Result<Guid>> BookPassengers(BookPassengersRequest request, CancellationToken token);
 }

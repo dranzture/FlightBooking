@@ -1,6 +1,4 @@
-﻿using Training.FlightBooking.Core.PassengerAggregate;
-
-namespace Training.FlightBooking.Core.FlightAggregate.Interfaces;
+﻿namespace Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 
 public interface IUpdateFlightAvailabilityService
 {

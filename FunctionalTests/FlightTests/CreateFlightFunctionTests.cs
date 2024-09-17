@@ -40,7 +40,7 @@ public class CreateFlightFunctionTests(FunctionalTestFactory factory) : CreateFl
     }
 
     [Fact]
-    public async void CreateFlight_ShouldFail_WhenThereIsOtherFlight()
+    public async void CreateFlight_ShouldFail_WhenThereIsDuplicateFlight()
     {
         // Arrange
         var airplane = new Airplane("Test Model", "Test Manufacturer", 10, 2020);
@@ -74,6 +74,6 @@ public class CreateFlightFunctionTests(FunctionalTestFactory factory) : CreateFl
 
         // Assert
         result.Result.Should().NotBeNull();
-        result.Result.IsSuccess.Should().BeTrue();
+        result.Result.IsSuccess.Should().BeFalse();
     }
 }

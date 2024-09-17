@@ -57,4 +57,12 @@ public class Booking : Shared.EntityBase<Guid>, IAggregateRoot
         PassengerId = passengerId;
         RegisterDomainEvent(new PassengerBookedFlight(FlightId, Seats));
     }
+
+    public void AddPassengers(IEnumerable<Passenger> passengers)
+    {
+        foreach (var passenger in passengers)
+        {
+            AddPassenger(passenger.Id);
+        }
+    }
 }

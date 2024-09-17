@@ -35,7 +35,7 @@ public class MapperProfiles : Profile
             .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
             .ReverseMap();
 
-        CreateMap<CreateBookingRequest, Booking>()
+        CreateMap<BookPassengersRequest, Booking>()
             .ForMember(dest => dest.Status, opt => opt.Ignore())
             .ForMember(dest => dest.Flight, opt => opt.Ignore())
             .ForMember(dest => dest.Passenger, opt => opt.Ignore())

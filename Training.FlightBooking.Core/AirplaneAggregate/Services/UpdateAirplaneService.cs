@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation.Results;
+using Serilog;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Validations;
@@ -10,31 +11,51 @@ namespace Training.FlightBooking.Core.AirplaneAggregate.Services;
 
 public class UpdateAirplaneService(
     IAirplaneRepository repository,
+    ILogger logger,
     IMapper mapper,
     IEnumerable<IUpdateAirplaneValidationRule> rules) : IUpdateAirplaneService
 {
-    public async Task<Result> UpdateAirplane(UpdateAirplaneRequest req, CancellationToken cancellationToken)
+    public async Task<Result> UpdateAirplane(UpdateAirplaneRequest request, CancellationToken cancellationToken)
     {
-        var airplane = mapper.Map<Airplane>(req);
-
-        var validationFailures = new List<ValidationFailure>();
-
-        foreach (var rule in rules)
+        try
         {
-            var validationFailure = await rule.ValidateAsync(airplane, cancellationToken);
-            if (validationFailure is not null)
+            var airplane = mapper.Map<Airplane>(request);
+
+            var validationFailures = new List<ValidationFailure>();
+
+            foreach (var rule in rules)
             {
-                validationFailures.Add(validationFailure);
+                var validationFailure = await rule.ValidateAsync(airplane, cancellationToken);
+                if (validationFailure is not null)
+                {
+                    validationFailures.Add(validationFailure);
+                }
             }
+
+            if (validationFailures.Count > 0)
+            {
+                return Result<Guid>.Failure(validationFailures);
+            }
+
+            await repository.UpdateAsync(airplane, cancellationToken);
+
+            return Result.Success();
         }
 
-        if (validationFailures.Count > 0)
+        catch (ArgumentException ex)
         {
-            return Result<Guid>.Failure(validationFailures);
+            var validationFailures = new List<ValidationFailure>
+                { new(nameof(Airplane), ex.Message) };
+            return Result.Failure(validationFailures);
         }
-        
-        await repository.UpdateAsync(airplane, cancellationToken);
+        catch (Exception ex)
+        {
+            logger.Error(ex, "---> Error in {Type}. Request: {@Request}", nameof(UpdateAirplaneService), request);
 
-        return Result.Success();
+            var validationFailures = new List<ValidationFailure>
+                { new(nameof(Airplane), "Something went wrong.") };
+
+            return Result.Failure(validationFailures);
+        }
     }
 }
