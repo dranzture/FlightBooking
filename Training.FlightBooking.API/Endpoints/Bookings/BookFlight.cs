@@ -19,11 +19,7 @@ public class BookFlight(IBookPassengersService service) : Endpoint<BookPassenger
         {
             s.Description = "Create a new flight";
             s.ExampleRequest = new BookPassengersRequest(new Guid(),
-                new List<PassengerDto>()
-                {
-                    new("John", "Doe", "a@a.com", DateOnly.FromDateTime(DateTime.Now)),
-                    new("Jane", "Doe", "b@a.com", DateOnly.FromDateTime(DateTime.Now))
-                },
+                Guid.NewGuid(),
                 2);
         });
     }

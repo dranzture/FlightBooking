@@ -2,11 +2,11 @@
 
 namespace Training.FlightBooking.Core.BookingAggregate.Requests;
 
-public class BookPassengersRequest(Guid flightId, IEnumerable<PassengerDto> passengers, int seats)
+public class BookPassengersRequest(Guid flightId, Guid passengerId, int seats)
 {
     public Guid FlightId { get; private set; } = flightId;
     
-    public IEnumerable<PassengerDto> Passengers { get; private set; } = passengers;
+    public Guid PassengerId { get; private set; } = passengerId;
 
     public int Seats { get; private set; } = seats;
 }

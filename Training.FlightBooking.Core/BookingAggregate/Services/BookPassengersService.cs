@@ -21,7 +21,7 @@ public class BookPassengersService(
         try
         {
             var booking = new Booking(request.FlightId, request.Seats);
-            booking.AddPassengers(mapper.Map<IEnumerable<Passenger>>(request.Passengers));
+            booking.AddPassenger(request.PassengerId);
 
             var validationFailures = new List<ValidationFailure>();
 

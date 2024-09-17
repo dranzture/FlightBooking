@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
+using Training.FlightBooking.Core.Shared;
 using Training.FlightBooking.Core.ValueObjects;
 using Xunit;
 
@@ -11,7 +13,7 @@ namespace FunctionalTests.FlightTests;
 public class CreateFlightFunctionTests(FunctionalTestFactory factory) : CreateFlightServiceTest(factory)
 {
     [Fact]
-    public async void CreateFlight_ShouldSucceed_WhenThereIsNoOtherFlight()
+    public async Task CreateFlight_ShouldSucceed_WhenThereIsNoOtherFlight()
     {
         // Arrange
         var airplane = new Airplane("Test Model", "Test Manufacturer", 10, 2020);
@@ -32,15 +34,20 @@ public class CreateFlightFunctionTests(FunctionalTestFactory factory) : CreateFl
 
 
         // Act
-        var result = CreateFlightService.CreateFlight(createFlightRequest);
+        var result = await CreateFlightService.CreateFlight(createFlightRequest);
 
         // Assert
-        result.Result.Should().NotBeNull();
-        result.Result.IsSuccess.Should().BeTrue();
+        result.Should()
+            .NotBeNull()
+            .And.BeOfType<Result<Guid>>()
+            .Which
+            .IsSuccess
+            .Should()
+            .BeTrue();
     }
 
     [Fact]
-    public async void CreateFlight_ShouldFail_WhenThereIsDuplicateFlight()
+    public async Task CreateFlight_ShouldFail_WhenThereIsDuplicateFlight()
     {
         // Arrange
         var airplane = new Airplane("Test Model", "Test Manufacturer", 10, 2020);
@@ -70,10 +77,15 @@ public class CreateFlightFunctionTests(FunctionalTestFactory factory) : CreateFl
 
 
         // Act
-        var result = CreateFlightService.CreateFlight(createFlightRequest);
+        var result = await CreateFlightService.CreateFlight(createFlightRequest);
 
         // Assert
-        result.Result.Should().NotBeNull();
-        result.Result.IsSuccess.Should().BeFalse();
+        result.Should()
+            .NotBeNull()
+            .And.BeOfType<Result<Guid>>()
+            .Which
+            .IsSuccess
+            .Should()
+            .BeFalse();
     }
 }
