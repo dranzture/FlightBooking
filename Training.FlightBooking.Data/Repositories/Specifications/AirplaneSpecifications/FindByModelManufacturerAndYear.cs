@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 
-namespace Training.FlightBooking.Data.Repositories.Specifications.Airplane;
+namespace Training.FlightBooking.Data.Repositories.Specifications.AirplaneSpecifications;
 
 public sealed class FindByModelManufacturerAndYear : Specification<Core.AirplaneAggregate.Airplane>
 {

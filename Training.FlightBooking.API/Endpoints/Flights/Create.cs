@@ -1,14 +1,13 @@
 ﻿using FastEndpoints;
 using Training.FlightBooking.Core.DTOs;
 using Training.FlightBooking.Core.FlightAggregate;
-using Training.FlightBooking.Core.FlightAggregate.Interfaces;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Services;
 using Training.FlightBooking.Core.FlightAggregate.Requests;
-using IMapper = AutoMapper.IMapper;
+using Training.FlightBooking.Core.Shared;
 
 namespace Training.FlightBooking.API.Endpoints.Flights;
 
-public class Create(ICreateFlightService createFlightService) : Endpoint<CreateFlightRequest>
+public class Create(ICreateFlightService createFlightService) : Endpoint<CreateFlightRequest, Result<Guid>>
 {
     private const string Route = "api/Flight/Create";
 

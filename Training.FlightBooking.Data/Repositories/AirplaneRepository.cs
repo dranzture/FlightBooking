@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using Training.FlightBooking.Core.AirplaneAggregate;
 using Training.FlightBooking.Core.AirplaneAggregate.Interfaces.Repository;
-using Training.FlightBooking.Data.Repositories.Specifications.Airplane;
+using Training.FlightBooking.Data.Repositories.Specifications.AirplaneSpecifications;
 
 namespace Training.FlightBooking.Data.Repositories;
 

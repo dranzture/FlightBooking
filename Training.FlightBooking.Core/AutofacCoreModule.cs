@@ -78,6 +78,7 @@ public class AutofacCoreModule : Module
         builder.RegisterType<BookPassengersService>()
             .As<IBookPassengersService>()
             .InstancePerLifetimeScope();
+        
         builder.RegisterType<GetBookingService>()
             .As<IGetBookingService>()
             .InstancePerLifetimeScope();
@@ -97,7 +98,9 @@ public class AutofacCoreModule : Module
             .Where(t => typeof(IDeletePassengerBookingValidationRule).IsAssignableFrom(t) && !t.IsAbstract)
             .AsImplementedInterfaces();
         
-
+        builder.RegisterType<GetFlightByIdService>()
+            .As<IGetFlightById>()
+            .InstancePerLifetimeScope();
         builder.RegisterType<UpdateFlightAvailabilityService>()
             .As<IUpdateFlightAvailabilityService>()
             .InstancePerLifetimeScope();

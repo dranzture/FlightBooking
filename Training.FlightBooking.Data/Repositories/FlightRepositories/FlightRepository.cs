@@ -1,11 +1,11 @@
 ﻿using Ardalis.SharedKernel;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
-using Training.FlightBooking.Data.Repositories.Specifications.Flight;
+using Training.FlightBooking.Data.Repositories.Specifications.FlightSpecifications;
 
-namespace Training.FlightBooking.Data.Repositories;
+namespace Training.FlightBooking.Data.Repositories.FlightRepositories;
 
-public class FlightRepository(IRepository<Flight> repository) : IFlightRepository
+public class FlightRepository(IRepository<Flight> repository)
 {
     public Task<Flight> AddAsync(Flight flight, CancellationToken cancellationToken)
     {

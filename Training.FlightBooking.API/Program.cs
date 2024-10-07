@@ -40,7 +40,7 @@ builder.Services.AddAutoMapper(typeof(MapperProfiles));
 builder.Services.AddFastEndpoints();
 builder.Services.AddValidatorsFromAssemblyContaining<IValidator>();
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
@@ -62,7 +62,6 @@ foreach (var registration in autofacServiceProvider.ComponentRegistry.Registrati
 
 //This is a debugger tool of AutoMapper to validate which fields are mapped
 app.ValidateAutoMapper();
-
 app.UseFastEndpoints();
 
 // Configure the HTTP request pipeline.

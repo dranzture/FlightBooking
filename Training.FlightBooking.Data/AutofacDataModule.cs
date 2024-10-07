@@ -7,6 +7,7 @@ using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
 using Training.FlightBooking.Core.FlightAggregate;
 using Training.FlightBooking.Core.FlightAggregate.Interfaces.Repository;
 using Training.FlightBooking.Data.Repositories;
+using Training.FlightBooking.Data.Repositories.FlightRepositories;
 using Module = Autofac.Module;
 
 namespace Training.FlightBooking.Data;
@@ -65,7 +66,8 @@ public class AutofacDataModule : Module
 
     private void RegisterRepositories(ContainerBuilder builder)
     {
-        builder.RegisterType<FlightRepository>().As<IFlightRepository>();
+        builder.RegisterType<FlightRepository>().InstancePerLifetimeScope();
+        builder.RegisterType<CachedFlightRepository>().As<IFlightRepository>();
         builder.RegisterType<AirplaneRepository>().As<IAirplaneRepository>();
         builder.RegisterType<BookingRepository>().As<IBookingRepository>();
     }

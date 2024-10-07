@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using Training.FlightBooking.Core.BookingAggregate;
 using Training.FlightBooking.Core.BookingAggregate.Interfaces.Repository;
-using Training.FlightBooking.Data.Repositories.Specifications.Booking;
+using Training.FlightBooking.Data.Repositories.Specifications.BookingSpecifications;
 
 namespace Training.FlightBooking.Data.Repositories;
 
