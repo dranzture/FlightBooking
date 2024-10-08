@@ -1,6 +1,4 @@
-﻿version: '3.8'
-
-services:
+﻿services:
   db:
     image: postgres:latest
     container_name: flights-db
@@ -24,5 +22,11 @@ services:
     depends_on:
       - db
       
+  redis:
+    image: redis:latest
+    container_name: flights-redis
+    ports:
+      - "6379:6379"
+
 volumes:
   postgres_data:

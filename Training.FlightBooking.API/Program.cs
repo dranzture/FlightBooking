@@ -41,6 +41,11 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddValidatorsFromAssemblyContaining<IValidator>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddMemoryCache();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+    options.Configuration = redisConnectionString;
+});
 
 var app = builder.Build();
 
@@ -81,4 +86,6 @@ app.Run();
 
 //Integration Test Utilizes this partial class.
 //Even though it is a 'hack', many other Microsoft MVP developers suggest this approach.
-public partial class Program{}
+public partial class Program
+{
+}
