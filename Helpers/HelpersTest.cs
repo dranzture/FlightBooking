@@ -13,6 +13,7 @@ public class HelpersTest
     {
         var serializedString =
             "{\"To\":{\"State\":\"TX\",\"City\":\"San Antonio\"},\"From\":{\"State\":\"CA\",\"City\":\"San Francisco\"},\"Arrival\":\"2024-02-14T03:18:58.064Z\",\"Departure\":\"2024-02-14T03:18:58.064Z\",\"Seats\":200,\"BookedSeats\":2,\"Airplane\":null,\"AirplaneId\":\"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\"Status\":{\"Name\":\"OnTime\",\"Value\":0},\"Id\":\"123e3656-d448-4168-b9cb-846548986328\",\"DomainEvents\":[]}";
+        
         var flight = JsonConvert.DeserializeObject<Flight>(serializedString, new JsonSerializerSettings
         {
             ConstructorHandling =
